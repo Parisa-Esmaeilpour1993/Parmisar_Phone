@@ -1,20 +1,34 @@
-import { useState } from "react";
-import Button from "../shared/button/Button";
-import Input from "../shared/input/Input";
+import { useState } from 'react';
+import Button from '../shared/button/Button';
+import Input from '../shared/input/Input';
+import { LoginAd } from '../Sevices/LoginAd/LoginAd';
+import { useNavigate } from 'react-router';
 
 export default function Login() {
-  const [password, setPassword] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
+
+  const navigate = useNavigate();
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     const { name, value } = e.target;
-    if (name === "email") {
+    if (name === 'email') {
       setEmail(value);
-    } else if (name === "password") {
+    } else if (name === 'password') {
       setPassword(value);
     }
   };
-  function handleSubmit() {}
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const result = await LoginAd({ email: email, password: password });
+    console.log(result);
+    if(result?.status===200){
+       navigate('/panel')
+
+    }
+  }
 
   return (
     <div className="flex items-center justify-center h-screen">
