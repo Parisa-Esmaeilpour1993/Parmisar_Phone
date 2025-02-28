@@ -1,9 +1,15 @@
 import { BiFilterAlt } from "react-icons/bi";
 import { CiExport } from "react-icons/ci";
 import { FaPlus } from "react-icons/fa";
+import { InitialFocus } from "../../Modal/modal";
+import axios from "axios";
+import { BASE_URL } from "../../../constants/api/Api";
 
 
 export default function Products() {
+
+
+
   return (
     <div>
       <div className="flex justify-between items-center px-16 py-5 gap-5">
@@ -36,10 +42,7 @@ export default function Products() {
             <CiExport />
             Export
           </button>
-          <button className="flex items-center h-12 text-white px-5 py-2 rounded-md bg-blue-500">
-            <FaPlus />
-            Add New Product
-          </button>
+          <InitialFocus/>
         </div>
       </div>
       {/* tabel */}
@@ -182,9 +185,7 @@ export default function Products() {
         </div>
 
         <div className="flex justify-between items-center mt-4 text-gray-600">
-          <button className="px-1 py-1 text-sm text-gray-400">
-            Previous
-          </button>
+          <button className="px-1 py-1 text-sm text-gray-400">Previous</button>
           <div className="flex justify-center items-center gap-2">
             <button className="px-3 py-1 text-sm rounded hover:bg-gray-200">
               1

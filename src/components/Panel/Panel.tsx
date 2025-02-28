@@ -1,4 +1,3 @@
-import React from 'react'
 import Asidebar from './Asidebar/Asidebar'
 import Headers from './Headers/Headers';
 import Analysis from './Analysis/Analysis';
@@ -16,11 +15,11 @@ export default function Panel() {
         <div className="w-full">
           <Headers />
           <Products/>
-          {/* <Analysis />
+          <Analysis />
           <div className="flex">
             <Chart />
             <Information/>
-          </div> */}
+          </div>
         </div>
       </div>
     </div>
