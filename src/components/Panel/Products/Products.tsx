@@ -1,16 +1,17 @@
 import { BiFilterAlt } from "react-icons/bi";
 import { CiExport } from "react-icons/ci";
 import { FaPlus } from "react-icons/fa";
+import { asidebarlocalization, productslocalization } from "../../../constants/localization/Localization";
 
 
 export default function Products() {
   return (
     <div>
       <div className="flex justify-between items-center px-16 py-5 gap-5">
-        <p className="font-semibold text-2xl">Product</p>
+        <p className="font-semibold text-2xl">{asidebarlocalization["products"]}</p>
         <div className="flex gap-9 items-center justify-center">
           <label className="mt-1" htmlFor="number">
-            Showing
+            {productslocalization["Showing"]}
           </label>
           <select
             className="bg-blue-100 h-8 px-2 rounded-md"
@@ -30,7 +31,7 @@ export default function Products() {
           </select>
           <button className="flex items-center px-5 h-8 rounded-md bg-white shadow-lg">
             <BiFilterAlt />
-            Filter
+            {productslocalization["Filter"]}
           </button>
           <button className="flex items-center px-5 h-10 rounded-md bg-white shadow-lg">
             <CiExport />
@@ -38,7 +39,7 @@ export default function Products() {
           </button>
           <button className="flex items-center h-12 text-white px-5 py-2 rounded-md bg-blue-500">
             <FaPlus />
-            Add New Product
+            {productslocalization["addNewProduct"]}
           </button>
         </div>
       </div>
@@ -49,14 +50,14 @@ export default function Products() {
             <thead className="bg-gray-200">
               <tr>
                 <th className="py-3 px-4 text-sm font-semibold">
-                  Product Name
+                  {productslocalization["productName"]}
                 </th>
-                <th className="py-3 px-4 text-sm font-semibold">Product ID</th>
-                <th className="py-3 px-4 text-sm font-semibold">Price</th>
-                <th className="py-3 px-4 text-sm font-semibold">Stock</th>
-                <th className="py-3 px-4 text-sm font-semibold">Type</th>
-                <th className="py-3 px-4 text-sm font-semibold">Status</th>
-                <th className="py-3 px-4 text-sm font-semibold">Action</th>
+                <th className="py-3 px-4 text-sm font-semibold">{productslocalization["productID"]}</th>
+                <th className="py-3 px-4 text-sm font-semibold">{productslocalization["price"]}</th>
+                <th className="py-3 px-4 text-sm font-semibold">{productslocalization['stock']}</th>
+                <th className="py-3 px-4 text-sm font-semibold">{productslocalization['type']}</th>
+                <th className="py-3 px-4 text-sm font-semibold">{productslocalization['status']}</th>
+                <th className="py-3 px-4 text-sm font-semibold">{productslocalization['action']}</th>
               </tr>
             </thead>
             <tbody>
@@ -183,7 +184,7 @@ export default function Products() {
 
         <div className="flex justify-between items-center mt-4 text-gray-600">
           <button className="px-1 py-1 text-sm text-gray-400">
-            Previous
+            {productslocalization["previous"]}
           </button>
           <div className="flex justify-center items-center gap-2">
             <button className="px-3 py-1 text-sm rounded hover:bg-gray-200">
@@ -199,7 +200,7 @@ export default function Products() {
               4
             </button>
           </div>
-          <button className="px-1 py-1 text-sm">Next</button>
+          <button className="px-1 py-1 text-sm">{productslocalization["next"]}</button>
         </div>
       </div>
     </div>

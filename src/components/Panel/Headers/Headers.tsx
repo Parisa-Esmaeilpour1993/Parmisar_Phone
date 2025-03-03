@@ -1,5 +1,6 @@
 import { FaBell } from 'react-icons/fa';
 import profile from './../../../assets/images/profile.svg';
+import { asidebarlocalization, Headerlocalization } from '../../../constants/localization/Localization';
 
 export default function Headers() {
   return (
@@ -7,7 +8,7 @@ export default function Headers() {
       <div className="flex items-center border focus-within:border-indigo-500 transition duration-300 pr-3 gap-2 border-gray-500/30 h-[46px] rounded-[5px] overflow-hidden">
         <input
           type="text"
-          placeholder="Search for products"
+          placeholder={Headerlocalization["palaceHolder"]}
           className="w-[30rem] bg-transparent h-full pl-4 outline-none placeholder-gray-500 text-sm"
         />
         <svg
@@ -29,8 +30,8 @@ export default function Headers() {
         <div className='flex gap-3'>
           <img className='w-12 h-12' src={profile} alt="profile" />
           <div>
-            <p> parmisar </p>
-            <p className='text-gray-400'> admin  </p>
+            <p> {asidebarlocalization["parmisar"]} </p>
+            <p className='text-gray-400'>{Headerlocalization["admin"]} </p>
           </div>
         </div>
       </div>

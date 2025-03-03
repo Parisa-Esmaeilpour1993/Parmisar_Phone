@@ -15,12 +15,12 @@ export default function Panel() {
         </div>
         <div className="w-full">
           <Headers />
-          <Products/>
-          {/* <Analysis />
+          {/* <Products/> */}
+          <Analysis />
           <div className="flex">
             <Chart />
             <Information/>
-          </div> */}
+          </div>
         </div>
       </div>
     </div>

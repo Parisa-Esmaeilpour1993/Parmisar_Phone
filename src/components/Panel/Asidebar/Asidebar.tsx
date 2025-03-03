@@ -4,6 +4,7 @@ import { CiLogout } from "react-icons/ci";
 import { IoMdHelpCircle } from "react-icons/io";
 import { IoHomeSharp, IoSettingsSharp } from "react-icons/io5";
 import logo from './../../../assets/images/logo.png'
+import { asidebarlocalization } from "../../../constants/localization/Localization";
 
 
 export default function Asidebar() {
@@ -11,33 +12,33 @@ export default function Asidebar() {
     <div className="flex flex-col gap-32 pt-16 px-10 ">
       <div className="flex gap-2 ">
         <img className="w-8 h-10 items-center" src={logo} alt="logo" />
-        <p className="text-2xl font-bold">Parmisar</p>
+        <p className="text-2xl font-bold">{asidebarlocalization['parmisar']}</p>
       </div>
       <div className="flex flex-col gap-8">
         <button className="flex items-center gap-2 focus:bg-primary-200 focus:p-1 focus:rounded-lg focus:text-white">
           <IoHomeSharp />
-          <p>Home</p>
+          <p>{asidebarlocalization['home']}</p>
         </button>
         <button className="flex items-center gap-2 focus:bg-primary-200 focus:p-1 focus:rounded-lg focus:text-white">
           <AiFillProduct />
-          <p>Products</p>
+          <p>{asidebarlocalization['products']}</p>
         </button>
         <button className="flex items-center gap-2 focus:bg-primary-200 focus:p-1 focus:rounded-lg focus:text-white">
           <BiSolidMessageDetail />
-          <p>Message</p>
+          <p>{asidebarlocalization['message']}</p>
         </button>
         <button className="flex items-center gap-2 focus:bg-primary-200 focus:p-1 focus:rounded-lg focus:text-white">
           <IoSettingsSharp />
-          <p>Settings</p>
+          <p>{asidebarlocalization['setting']}</p>
         </button>
         <button className="flex items-center gap-2 focus:bg-primary-200 focus:p-1 focus:rounded-lg focus:text-white">
           <IoMdHelpCircle />
-          <p>Help</p>
+          <p>{asidebarlocalization['help']}</p>
         </button>
       </div>
       <button className="flex items-center gap-2">
         <CiLogout />
-        <p>Log Out</p>
+        <p>{asidebarlocalization['logOut']}</p>
       </button>
     </div>
   );
