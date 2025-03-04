@@ -4,6 +4,7 @@ import Analysis from './Analysis/Analysis';
 import Chart from './Chart/Chart';
 import Information from './Information/Information';
 import Products from './Products/Products';
+import Profile from './Profile/Profile';
 
 export default function Panel() {
   return (
@@ -13,17 +14,14 @@ export default function Panel() {
           <Asidebar />
         </div>
         <div className="w-full">
-          <Headers />
-<<<<<<< HEAD
-          {/* <Products/> */}
-=======
+          {/* <Headers />
           <Products/>
->>>>>>> 66e94ad8314da1cf412449bd389bfd0b59b57b7a
           <Analysis />
           <div className="flex">
             <Chart />
             <Information/>
-          </div>
+          </div> */}
+          <Profile/>
         </div>
       </div>
     </div>
