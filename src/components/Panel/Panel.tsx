@@ -5,6 +5,7 @@ import Chart from "./Chart/Chart";
 import Information from "./Information/Information";
 import Products from "./Products/Products";
 import Order from "./Order/Order";
+import Profile from './Profile/Profile';
 
 export default function Panel() {
   return (
@@ -14,7 +15,7 @@ export default function Panel() {
           <Asidebar />
         </div>
         <div className="w-full">
-          <Headers />
+          {/* <Headers />
           <Order />
           {/* <Products /> */}
           {/* <Analysis /> */}
@@ -22,6 +23,7 @@ export default function Panel() {
             {/* <Chart /> */}
             {/* <Information /> */}
           </div>
+          <Profile/>
         </div>
       </div>
     </div>

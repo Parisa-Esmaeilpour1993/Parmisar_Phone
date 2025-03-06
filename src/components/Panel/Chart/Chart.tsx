@@ -1,9 +1,11 @@
+import { chartlocalization } from "../../../constants/localization/Localization";
+
 export default function Chart() {
   return (
     <div className="bg-white h-[21rem] w-[60%] ml-16 mt-5 rounded-3xl shadow-md">
       <div className="m-10">
-        <p>Monthly Revenue</p>
-        <p className="pt-1 text-4xl font-medium">$15,000</p>
+        <p>{chartlocalization["monthlyRevenue"]}</p>
+        <p className="pt-1 text-4xl font-medium">15,000</p>
       </div>
       <div className="flex">
         <div className="bg-gray-300 w-12 h-24 ml-9  my-10 rounded-xl flex"></div>
