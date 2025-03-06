@@ -1,13 +1,14 @@
 import { BiFilterAlt } from "react-icons/bi";
 import { CiExport } from "react-icons/ci";
-import { FaPlus } from "react-icons/fa";
-import { InitialFocus } from "../../Modal/modal";
-import axios from "axios";
-import { BASE_URL } from "../../../constants/api/Api";
+import { InitialFocus } from "../Modal/modal";
 import {
   asidebarlocalization,
   productslocalization,
 } from "../../../constants/localization/Localization";
+import { FaPlus } from "react-icons/fa";
+import { InitialFocus } from "../../Modal/modal";
+import axios from "axios";
+import { BASE_URL } from "../../../constants/api/Api";
 
 export default function Products() {
   return (

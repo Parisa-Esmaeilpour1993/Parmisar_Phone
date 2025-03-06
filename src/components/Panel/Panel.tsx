@@ -3,6 +3,8 @@ import Headers from "./Headers/Headers";
 import Products from "./Products/Products";
 import Home from "./Home/Home";
 import { useState } from "react";
+import Order from "./Order/Order";
+import Profile from "./Profile/Profile";
 
 export default function Panel() {
   const [activeComponent, setActiveComponent] = useState("home");
@@ -14,7 +16,7 @@ export default function Panel() {
       case "products":
         return <Products />;
       case "messages":
-        return <Orders />;
+        return <Order />;
       default:
         return <Home />;
     }
@@ -29,6 +31,15 @@ export default function Panel() {
         <div className="w-full">
           <Headers />
           {renderComponents()}
+          {/* <Headers />
+          <Order />
+          {/* <Products /> */}
+          {/* <Analysis /> */}
+          <div className="flex">
+            {/* <Chart /> */}
+            {/* <Information /> */}
+          </div>
+          <Profile />
         </div>
       </div>
     </div>

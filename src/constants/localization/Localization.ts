@@ -55,3 +55,35 @@ export const productslocalization = {
   next: "بعدی",
   previous: "قبلی",
 };
+
+export const profilelocalization = {
+profile : "حساب کاربری",
+uploadNew : "بارگذاری پروفایل جدید",
+removeProfile : "حذف عکس پروفایل",
+name : "نام",
+typeName : "نام خود را وارد کنید",
+email : "ایمیل",
+typeEmail : "ایمیل خود را وارد کنید",
+userName : "نام کاربری",
+typeUserName : "نام کاربری خود را وارد کنید",
+phonNumber : "شماره موبایل",
+typePhoneNumber : "شماره خود را وارد کنید",
+bio : "درباره من",
+updateProfile : "به روزرسانی اطلاعات"
+}
+export const Orderlocalization = {
+  oredr : "سفارشات",
+  userName:"نام کاربر",
+  orderTotalPrice:"مبلغ سفارش",
+  status : "وضعیت سفارش"
+}
+export const OrderModalLocalization ={
+  title : "سفارش کاربر",
+  userName : "نام کاربری",
+  OrderList : "لیست سفارشات",
+  productName : "نام محصول",
+  productPrice : "قیمت محصول",
+  count : "تعداد",
+  tottalPrice : "قیمت کل",
+  close : "خروج"
+}
