@@ -1,23 +1,21 @@
 import { BiFilterAlt } from "react-icons/bi";
 import { CiExport } from "react-icons/ci";
 import { FaPlus } from "react-icons/fa";
-<<<<<<< HEAD
-import { asidebarlocalization, productslocalization } from "../../../constants/localization/Localization";
-=======
 import { InitialFocus } from "../../Modal/modal";
 import axios from "axios";
 import { BASE_URL } from "../../../constants/api/Api";
->>>>>>> 66e94ad8314da1cf412449bd389bfd0b59b57b7a
-
+import {
+  asidebarlocalization,
+  productslocalization,
+} from "../../../constants/localization/Localization";
 
 export default function Products() {
-
-
-
   return (
     <div>
       <div className="flex justify-between items-center px-16 py-5 gap-5">
-        <p className="font-semibold text-2xl">{asidebarlocalization["products"]}</p>
+        <p className="font-semibold text-2xl">
+          {asidebarlocalization["products"]}
+        </p>
         <div className="flex gap-9 items-center justify-center">
           <label className="mt-1" htmlFor="number">
             {productslocalization["Showing"]}
@@ -46,14 +44,7 @@ export default function Products() {
             <CiExport />
             Export
           </button>
-<<<<<<< HEAD
-          <button className="flex items-center h-12 text-white px-5 py-2 rounded-md bg-blue-500">
-            <FaPlus />
-            {productslocalization["addNewProduct"]}
-          </button>
-=======
-          <InitialFocus/>
->>>>>>> 66e94ad8314da1cf412449bd389bfd0b59b57b7a
+          <InitialFocus />
         </div>
       </div>
       {/* tabel */}
@@ -65,12 +56,24 @@ export default function Products() {
                 <th className="py-3 px-4 text-sm font-semibold">
                   {productslocalization["productName"]}
                 </th>
-                <th className="py-3 px-4 text-sm font-semibold">{productslocalization["productID"]}</th>
-                <th className="py-3 px-4 text-sm font-semibold">{productslocalization["price"]}</th>
-                <th className="py-3 px-4 text-sm font-semibold">{productslocalization['stock']}</th>
-                <th className="py-3 px-4 text-sm font-semibold">{productslocalization['type']}</th>
-                <th className="py-3 px-4 text-sm font-semibold">{productslocalization['status']}</th>
-                <th className="py-3 px-4 text-sm font-semibold">{productslocalization['action']}</th>
+                <th className="py-3 px-4 text-sm font-semibold">
+                  {productslocalization["productID"]}
+                </th>
+                <th className="py-3 px-4 text-sm font-semibold">
+                  {productslocalization["price"]}
+                </th>
+                <th className="py-3 px-4 text-sm font-semibold">
+                  {productslocalization["stock"]}
+                </th>
+                <th className="py-3 px-4 text-sm font-semibold">
+                  {productslocalization["type"]}
+                </th>
+                <th className="py-3 px-4 text-sm font-semibold">
+                  {productslocalization["status"]}
+                </th>
+                <th className="py-3 px-4 text-sm font-semibold">
+                  {productslocalization["action"]}
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -196,13 +199,7 @@ export default function Products() {
         </div>
 
         <div className="flex justify-between items-center mt-4 text-gray-600">
-<<<<<<< HEAD
-          <button className="px-1 py-1 text-sm text-gray-400">
-            {productslocalization["previous"]}
-          </button>
-=======
           <button className="px-1 py-1 text-sm text-gray-400">Previous</button>
->>>>>>> 66e94ad8314da1cf412449bd389bfd0b59b57b7a
           <div className="flex justify-center items-center gap-2">
             <button className="px-3 py-1 text-sm rounded hover:bg-gray-200">
               1
@@ -217,7 +214,9 @@ export default function Products() {
               4
             </button>
           </div>
-          <button className="px-1 py-1 text-sm">{productslocalization["next"]}</button>
+          <button className="px-1 py-1 text-sm">
+            {productslocalization["next"]}
+          </button>
         </div>
       </div>
     </div>
