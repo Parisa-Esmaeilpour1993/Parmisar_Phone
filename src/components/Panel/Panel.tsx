@@ -1,9 +1,10 @@
-import Asidebar from './Asidebar/Asidebar'
-import Headers from './Headers/Headers';
-import Analysis from './Analysis/Analysis';
-import Chart from './Chart/Chart';
-import Information from './Information/Information';
-import Products from './Products/Products';
+import Asidebar from "./Asidebar/Asidebar";
+import Headers from "./Headers/Headers";
+import Analysis from "./Analysis/Analysis";
+import Chart from "./Chart/Chart";
+import Information from "./Information/Information";
+import Products from "./Products/Products";
+import Order from "./Order/Order";
 
 export default function Panel() {
   return (
@@ -14,11 +15,12 @@ export default function Panel() {
         </div>
         <div className="w-full">
           <Headers />
-          <Products/>
-          <Analysis />
+          <Order />
+          {/* <Products /> */}
+          {/* <Analysis /> */}
           <div className="flex">
-            <Chart />
-            <Information/>
+            {/* <Chart /> */}
+            {/* <Information /> */}
           </div>
         </div>
       </div>

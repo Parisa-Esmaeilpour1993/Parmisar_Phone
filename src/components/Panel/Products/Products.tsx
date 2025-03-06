@@ -1,9 +1,6 @@
 import { BiFilterAlt } from "react-icons/bi";
 import { CiExport } from "react-icons/ci";
-import { FaPlus } from "react-icons/fa";
-import { InitialFocus } from "../../Modal/modal";
-import axios from "axios";
-import { BASE_URL } from "../../../constants/api/Api";
+import { InitialFocus } from "../Modal/modal";
 
 
 export default function Products() {
@@ -13,7 +10,7 @@ export default function Products() {
   return (
     <div>
       <div className="flex justify-between items-center px-16 py-5 gap-5">
-        <p className="font-semibold text-2xl">Product</p>
+        <p className="font-semibold text-2xl">Products</p>
         <div className="flex gap-9 items-center justify-center">
           <label className="mt-1" htmlFor="number">
             Showing
