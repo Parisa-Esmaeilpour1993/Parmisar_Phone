@@ -2,12 +2,18 @@ import Asidebar from "./Asidebar/Asidebar";
 import Headers from "./Headers/Headers";
 import Products from "./Products/Products";
 import Home from "./Home/Home";
-import { useState } from "react";
+import { useContext } from "react";
 import Order from "./Order/Order";
 import Profile from "./Profile/Profile";
+import AsideContext from "../context/context";
 
 export default function Panel() {
-  const [activeComponent, setActiveComponent] = useState("home");
+  const asideContext = useContext(AsideContext);
+  if (!asideContext) {
+    throw new Error("AsideProvider is missing.");
+  }
+
+  const { activeComponent } = asideContext;
 
   function renderComponents() {
     switch (activeComponent) {
@@ -15,8 +21,10 @@ export default function Panel() {
         return <Home />;
       case "products":
         return <Products />;
-      case "messages":
+      case "order":
         return <Order />;
+      case "admin":
+        return <Profile />;
       default:
         return <Home />;
     }
@@ -26,20 +34,12 @@ export default function Panel() {
     <div>
       <div className="bg-[#f6f6f6] h-screen flex gap-5">
         <div className="w-[20%] shadow-xl">
-          <Asidebar setActiveComponent={setActiveComponent} />
+          <Asidebar />
         </div>
         <div className="w-full">
           <Headers />
           {renderComponents()}
-          {/* <Headers />
-          <Order />
-          {/* <Products /> */}
-          {/* <Analysis /> */}
-          <div className="flex">
-            {/* <Chart /> */}
-            {/* <Information /> */}
-          </div>
-          <Profile />
+          <div className="flex"></div>
         </div>
       </div>
     </div>

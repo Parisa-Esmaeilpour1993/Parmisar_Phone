@@ -1,8 +1,19 @@
-import { FaBell } from 'react-icons/fa';
-import profile from './../../../assets/images/profile.svg';
-import { asidebarlocalization, Headerlocalization } from '../../../constants/localization/Localization';
+import { FaBell } from "react-icons/fa";
+import profile from "./../../../assets/images/profile.svg";
+import {
+  asidebarlocalization,
+  Headerlocalization,
+} from "../../../constants/localization/Localization";
+import { useContext } from "react";
+import AsideContext from "../../context/context";
 
 export default function Headers() {
+  const asideContext = useContext(AsideContext);
+  if (!asideContext) {
+    throw new Error("AsideProvider is missing.");
+  }
+
+  const { setActiveComponent } = asideContext;
   return (
     <div className="mt-3 flex items-center justify-between px-16">
       <div className="flex items-center border focus-within:border-indigo-500 transition duration-300 pr-3 gap-2 border-gray-500/30 h-[46px] rounded-[5px] overflow-hidden">
@@ -24,14 +35,17 @@ export default function Headers() {
         </svg>
       </div>
 
-      <div className="flex gap-7 items-center ">
-          <FaBell className='text-2xl ' />
-       
-        <div className='flex gap-3'>
-          <img className='w-12 h-12' src={profile} alt="profile" />
+      <div
+        className="flex gap-7 items-center cursor-pointer"
+        onClick={() => setActiveComponent("admin")}
+      >
+        <FaBell className="text-2xl " />
+
+        <div className="flex gap-3">
+          <img className="w-12 h-12" src={profile} alt="profile" />
           <div>
             <p> {asidebarlocalization["parmisar"]} </p>
-            <p className='text-gray-400'>{Headerlocalization["admin"]} </p>
+            <p className="text-gray-400">{Headerlocalization["admin"]} </p>
           </div>
         </div>
       </div>
