@@ -18,6 +18,7 @@ export const LoginAd = async ({ email, password }: LoginAdProps) => {
         },
       }
     );
+    localStorage.setItem('token', response.data.accessToken);
     return response;
   } catch (error) {
     console.log(error);

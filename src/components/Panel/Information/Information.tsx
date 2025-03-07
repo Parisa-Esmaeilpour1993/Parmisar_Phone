@@ -1,5 +1,5 @@
 import { informationlocalization } from "../../../constants/localization/Localization";
-import Button from "../../shared/button/Button";
+
 
 export default function Information() {
   return (
@@ -7,9 +7,8 @@ export default function Information() {
       <p className="bg-white rounded-xl w-11 text-xs px-2 py-1 text-blue-300 ">
         {informationlocalization["new"]}
       </p>
-      <p className="text-white text-3xl font-semibold pt-3">
+      <p className="text-white text-2xl font-semibold pt-3">
         {informationlocalization["invoicingTemplates"]}
-        <br /> {informationlocalization["weHaveAddedNew"]}
       </p>
       <p className="text-white pt-3">
         {informationlocalization["newTemplatesFocusedOn"]}

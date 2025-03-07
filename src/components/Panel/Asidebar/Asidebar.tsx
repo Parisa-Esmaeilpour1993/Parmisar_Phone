@@ -5,9 +5,16 @@ import { IoMdHelpCircle } from "react-icons/io";
 import { IoHomeSharp, IoSettingsSharp } from "react-icons/io5";
 import logo from './../../../assets/images/logo.png'
 import { asidebarlocalization } from "../../../constants/localization/Localization";
+import { useNavigate } from "react-router";
 
 
 export default function Asidebar() {
+  const navigate = useNavigate()
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    navigate('/login');
+  };
   return (
     <div className="flex flex-col gap-32 pt-16 px-10 ">
       <div className="flex gap-2 ">
@@ -36,7 +43,7 @@ export default function Asidebar() {
           <p>{asidebarlocalization['help']}</p>
         </button>
       </div>
-      <button className="flex items-center gap-2">
+      <button className="flex items-center gap-2 " onClick={handleLogout}>
         <CiLogout />
         <p>{asidebarlocalization['logOut']}</p>
       </button>

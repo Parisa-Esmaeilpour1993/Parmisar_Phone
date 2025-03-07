@@ -1,9 +1,8 @@
-export interface productInit {
-    productName : string
-    productId : number | null
-    price : number | null
-    stock : number | null
-    type : string
-    status : string
-    action : []
+export interface Iproduct {
+  productName: string;
+  productPrice: string;
+  productStock: string;
+  productType: string;
+  productStatus: string;
+  id ?: string
 }

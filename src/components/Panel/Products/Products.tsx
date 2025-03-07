@@ -1,223 +1,251 @@
-import { BiFilterAlt } from "react-icons/bi";
-import { CiExport } from "react-icons/ci";
-import { FaPlus } from "react-icons/fa";
-<<<<<<< HEAD
-import { asidebarlocalization, productslocalization } from "../../../constants/localization/Localization";
-=======
-import { InitialFocus } from "../../Modal/modal";
-import axios from "axios";
-import { BASE_URL } from "../../../constants/api/Api";
->>>>>>> 66e94ad8314da1cf412449bd389bfd0b59b57b7a
+import { useEffect, useState } from 'react';
+import {
+  asidebarlocalization,
+  modallocalization,
+  productslocalization,
+} from '../../../constants/localization/Localization';
+import { Iproduct } from '../../../interfaces/interfaces';
+import Swal from 'sweetalert2';
+import { deleteProduct } from '../../Sevices/Products/deleteProducts';
+import { updateItem } from '../../Sevices/Products/editProducts';
+import { Modal } from '@chakra-ui/react';
+import Input from '../../shared/input/Input';
+import Button from '../../shared/button/Button';
+import axios from 'axios';
+
+export default function Products({ formData }: { formData: Iproduct[] }) {
+  const [products, setProducts] = useState<Iproduct[]>(formData || []);
+  const [selectedProduct, setSelectedProduct] = useState<Iproduct | null>(null);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const fetchProducts = async (products?: Iproduct[]) => {
+     try {
+       const response = await axios.get(
+         'https://676d5e440e299dd2ddff55b6.mockapi.io/shop'
+       );
+       setProducts(response.data);
+     } catch (error) {
+       console.error('خطا در دریافت محصولات:', error);
+     }
+   };
+ 
+   useEffect(() => {
+     if (!formData || formData.length === 0) {
+       fetchProducts();
+     } else {
+       setProducts(formData);
+     }
+   }, [formData]);
 
 
-export default function Products() {
+  const handleDelete = async (id: string) => {
+    try {
+      const result = await Swal.fire({
+        title: 'آیا مطمئن هستید؟',
+        text: 'این محصول برای همیشه حذف خواهد شد!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'بله، حذف شود!',
+        cancelButtonText: 'لغو',
+      });
 
+      if (result.isConfirmed) {
+        const success = await deleteProduct(id);
+        if (success) {
+          setProducts(prev => prev.filter(p => p.id !== id));
+          Swal.fire('حذف شد!', 'محصول با موفقیت حذف شد.', 'success');
+        } else {
+          throw new Error('مشکلی پیش آمد. دوباره امتحان کنید.');
+        }
+      }
+    } catch (error) {
+      console.error('خطا در حذف محصول:', error);
+      Swal.fire('خطا!', 'مشکلی پیش آمد. دوباره امتحان کنید.', 'error');
+    }
+  };
+
+
+
+  const handleEditClick = (product: Iproduct) => {
+    setSelectedProduct(product);
+    setIsEditModalOpen(true);
+  };
+
+  const handleEditChange = (e: { target: { name: string; value: string } }) => {
+    const { name, value } = e.target;
+    setSelectedProduct(prev => (prev ? { ...prev, [name]: value } : null));
+  };
+
+ 
+const handleEditSubmit = async () => {
+  if (!selectedProduct || !selectedProduct.id) return;
+  try {
+    setLoading(true);
+    const updatedData = await updateItem(selectedProduct.id, selectedProduct);
+    if (updatedData) {
+      setProducts(prev =>
+        prev.map(p => (p.id === selectedProduct.id ? updatedData : p))
+      );
+      setIsEditModalOpen(false);
+      setSelectedProduct(null); // پاک کردن مقدار بعد از ویرایش
+      Swal.fire('ویرایش موفقیت‌آمیز بود!', '', 'success');
+    } else {
+      throw new Error('خطا در ویرایش محصول!');
+    }
+  } catch (error: any) {
+    console.error('خطا در ویرایش محصول:', error);
+    Swal.fire(
+      'خطا در ویرایش!',
+      error.message || 'دوباره امتحان کنید.',
+      'error'
+    );
+  } finally {
+    setLoading(false);
+  }
+};
+
+const statusLocalizationHandler =(status:string)=>{
+  switch (status) {
+    case 'inStock':
+      return modallocalization['inStock'];
+    case 'outOfStock':
+      return modallocalization['outOfStock'];
+    case 'comingSoon':
+      return modallocalization['comingSoon'];
+    case 'discontinue':
+      return modallocalization['discontinue'];
+  }
+}
 
 
   return (
     <div>
-      <div className="flex justify-between items-center px-16 py-5 gap-5">
-        <p className="font-semibold text-2xl">{asidebarlocalization["products"]}</p>
-        <div className="flex gap-9 items-center justify-center">
-          <label className="mt-1" htmlFor="number">
-            {productslocalization["Showing"]}
-          </label>
-          <select
-            className="bg-blue-100 h-8 px-2 rounded-md"
-            name="number"
-            id="number"
-          >
-            <option value="">10</option>
-            <option value="">9</option>
-            <option value="">8</option>
-            <option value="">7</option>
-            <option value="">6</option>
-            <option value="">5</option>
-            <option value="">4</option>
-            <option value="">3</option>
-            <option value="">2</option>
-            <option value="">1</option>
-          </select>
-          <button className="flex items-center px-5 h-8 rounded-md bg-white shadow-lg">
-            <BiFilterAlt />
-            {productslocalization["Filter"]}
-          </button>
-          <button className="flex items-center px-5 h-10 rounded-md bg-white shadow-lg">
-            <CiExport />
-            Export
-          </button>
-<<<<<<< HEAD
-          <button className="flex items-center h-12 text-white px-5 py-2 rounded-md bg-blue-500">
-            <FaPlus />
-            {productslocalization["addNewProduct"]}
-          </button>
-=======
-          <InitialFocus/>
->>>>>>> 66e94ad8314da1cf412449bd389bfd0b59b57b7a
-        </div>
+      <div className="flex justify-between items-center px-16 py-5 gap-5 mt-3">
+        <p className="font-semibold text-2xl">
+          {asidebarlocalization['products']}
+        </p>
       </div>
-      {/* tabel */}
       <div className="px-16">
-        <div className="overflow-x-auto shadow-md rounded-lg">
-          <table className="w-full bg-white text-left border-collapse">
+        <div className="overflow-x-auto table-container shadow-md rounded-lg w-[71rem] h-[35rem]">
+          <table className="w-full bg-white text-left border-collapse ">
             <thead className="bg-gray-200">
               <tr>
-                <th className="py-3 px-4 text-sm font-semibold">
-                  {productslocalization["productName"]}
+                <th className="py-3 px-4 text-sm text-center font-semibold">
+                  {productslocalization['productName']}
                 </th>
-                <th className="py-3 px-4 text-sm font-semibold">{productslocalization["productID"]}</th>
-                <th className="py-3 px-4 text-sm font-semibold">{productslocalization["price"]}</th>
-                <th className="py-3 px-4 text-sm font-semibold">{productslocalization['stock']}</th>
-                <th className="py-3 px-4 text-sm font-semibold">{productslocalization['type']}</th>
-                <th className="py-3 px-4 text-sm font-semibold">{productslocalization['status']}</th>
-                <th className="py-3 px-4 text-sm font-semibold">{productslocalization['action']}</th>
+                <th className="py-3 px-4 text-sm text-center font-semibold">
+                  {productslocalization['productID']}
+                </th>
+                <th className="py-3 px-4 text-sm text-center font-semibold">
+                  {productslocalization['price']}
+                </th>
+                <th className="py-3 px-4 text-sm text-center font-semibold">
+                  {productslocalization['stock']}
+                </th>
+                <th className="py-3 px-4 text-sm text-center font-semibold">
+                  {productslocalization['type']}
+                </th>
+                <th className="py-3 px-4 text-sm text-center font-semibold">
+                  {productslocalization['status']}
+                </th>
+                <th className="py-3 px-4 text-sm text-center font-semibold">
+                  {productslocalization['action']}
+                </th>
               </tr>
             </thead>
             <tbody>
-              <tr className="border-b hover:bg-gray-50">
-                <td className="py-3 px-4 flex items-center gap-2">lorem</td>
-                <td className="py-3 px-4">lorem</td>
-                <td className="py-3 px-4">lorem</td>
-                <td className="py-3 px-4">lorem</td>
-                <td className="py-3 px-4">lorem</td>
-                <td className="py-3 px-4">
-                  <div className="px-3 py-1 w-14 text-xs font-semibold rounded-full text-white bg-yellow-300">
-                    lorem
-                  </div>
-                </td>
-                <td className="py-3 px-4 text-gray-500 cursor-pointer">⋮</td>
-              </tr>
-              <tr className="border-b hover:bg-gray-50">
-                <td className="py-3 px-4 flex items-center gap-2">lorem</td>
-                <td className="py-3 px-4">lorem</td>
-                <td className="py-3 px-4">lorem</td>
-                <td className="py-3 px-4">lorem</td>
-                <td className="py-3 px-4">lorem</td>
-                <td className="py-3 px-4">
-                  <div className="px-3 py-1 w-14 text-xs font-semibold rounded-full text-white bg-green-400">
-                    lorem
-                  </div>
-                </td>
-                <td className="py-3 px-4 text-gray-500 cursor-pointer">⋮</td>
-              </tr>
-              <tr className="border-b hover:bg-gray-50">
-                <td className="py-3 px-4 flex items-center gap-2">lorem</td>
-                <td className="py-3 px-4">lorem</td>
-                <td className="py-3 px-4">lorem</td>
-                <td className="py-3 px-4">lorem</td>
-                <td className="py-3 px-4">lorem</td>
-                <td className="py-3 px-4">
-                  <div className="px-3 py-1 w-14 text-xs font-semibold rounded-full text-white bg-red-300">
-                    lorem
-                  </div>
-                </td>
-                <td className="py-3 px-4 text-gray-500 cursor-pointer">⋮</td>
-              </tr>
-              <tr className="border-b hover:bg-gray-50">
-                <td className="py-3 px-4 flex items-center gap-2">lorem</td>
-                <td className="py-3 px-4">lorem</td>
-                <td className="py-3 px-4">lorem</td>
-                <td className="py-3 px-4">lorem</td>
-                <td className="py-3 px-4">lorem</td>
-                <td className="py-3 px-4">
-                  <div className="px-3 py-1 w-14 text-xs font-semibold rounded-full text-white bg-yellow-300">
-                    lorem
-                  </div>
-                </td>
-                <td className="py-3 px-4 text-gray-500 cursor-pointer">⋮</td>
-              </tr>
-              <tr className="border-b hover:bg-gray-50">
-                <td className="py-3 px-4 flex items-center gap-2">lorem</td>
-                <td className="py-3 px-4">lorem</td>
-                <td className="py-3 px-4">lorem</td>
-                <td className="py-3 px-4">lorem</td>
-                <td className="py-3 px-4">lorem</td>
-                <td className="py-3 px-4">
-                  <div className="px-3 py-1 w-14 text-xs font-semibold rounded-full text-white bg-green-400">
-                    lorem
-                  </div>
-                </td>
-                <td className="py-3 px-4 text-gray-500 cursor-pointer">⋮</td>
-              </tr>
-              <tr className="border-b hover:bg-gray-50">
-                <td className="py-3 px-4 flex items-center gap-2">lorem</td>
-                <td className="py-3 px-4">lorem</td>
-                <td className="py-3 px-4">lorem</td>
-                <td className="py-3 px-4">lorem</td>
-                <td className="py-3 px-4">lorem</td>
-                <td className="py-3 px-4">
-                  <div className="px-3 py-1 w-14 text-xs font-semibold rounded-full text-white bg-red-300">
-                    lorem
-                  </div>
-                </td>
-                <td className="py-3 px-4 text-gray-500 cursor-pointer">⋮</td>
-              </tr>
-              <tr className="border-b hover:bg-gray-50">
-                <td className="py-3 px-4 flex items-center gap-2">lorem</td>
-                <td className="py-3 px-4">lorem</td>
-                <td className="py-3 px-4">lorem</td>
-                <td className="py-3 px-4">lorem</td>
-                <td className="py-3 px-4">lorem</td>
-                <td className="py-3 px-4">
-                  <div className="px-3 py-1 w-14 text-xs font-semibold rounded-full text-white bg-yellow-300">
-                    lorem
-                  </div>
-                </td>
-                <td className="py-3 px-4 text-gray-500 cursor-pointer">⋮</td>
-              </tr>
-              <tr className="border-b hover:bg-gray-50">
-                <td className="py-3 px-4 flex items-center gap-2">lorem</td>
-                <td className="py-3 px-4">lorem</td>
-                <td className="py-3 px-4">lorem</td>
-                <td className="py-3 px-4">lorem</td>
-                <td className="py-3 px-4">lorem</td>
-                <td className="py-3 px-4">
-                  <div className="px-3 py-1 w-14 text-xs font-semibold rounded-full text-white bg-green-400">
-                    lorem
-                  </div>
-                </td>
-                <td className="py-3 px-4 text-gray-500 cursor-pointer">⋮</td>
-              </tr>
-              <tr className="border-b hover:bg-gray-50">
-                <td className="py-3 px-4 flex items-center gap-2">lorem</td>
-                <td className="py-3 px-4">lorem</td>
-                <td className="py-3 px-4">lorem</td>
-                <td className="py-3 px-4">lorem</td>
-                <td className="py-3 px-4">lorem</td>
-                <td className="py-3 px-4">
-                  <div className="px-3 py-1 w-14 text-xs font-semibold rounded-full text-white bg-red-300">
-                    lorem
-                  </div>
-                </td>
-                <td className="py-3 px-4 text-gray-500 cursor-pointer">⋮</td>
-              </tr>
+              {products.length > 0 ? (
+                products.map(item => (
+                  <tr key={item.id} className="border-b">
+                    <td className="py-4 text-center">{item.productName}</td>
+                    <td className="py-4 text-center">{item.id}</td>
+                    <td className="py-4 text-center">{item.productPrice}</td>
+                    <td className="py-4 text-center">{item.productStock}</td>
+                    <td className="py-4 text-center">{item.productType}</td>
+                    <td className="py-4 text-center">{statusLocalizationHandler(item.productStatus)}</td>
+                    <td className="py-4 text-center">
+                      <button
+                        className="bg-red-500 text-white rounded-lg p-1 mr-2"
+                        onClick={() => item.id && handleDelete(item.id)}
+                      >
+                        {productslocalization['delete']}
+                      </button>
+                      <button
+                        className="bg-blue-500 text-white rounded-lg p-1"
+                        onClick={() => handleEditClick(item)}
+                      >
+                        {productslocalization['edit']}
+                      </button>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td className="absolute top-52 font-semibold text-xl right-[38%] py-4">
+                    <p>محصولی یافت نشد!</p>
+                  </td>
+                </tr>
+              )}
             </tbody>
           </table>
-        </div>
-
-        <div className="flex justify-between items-center mt-4 text-gray-600">
-<<<<<<< HEAD
-          <button className="px-1 py-1 text-sm text-gray-400">
-            {productslocalization["previous"]}
-          </button>
-=======
-          <button className="px-1 py-1 text-sm text-gray-400">Previous</button>
->>>>>>> 66e94ad8314da1cf412449bd389bfd0b59b57b7a
-          <div className="flex justify-center items-center gap-2">
-            <button className="px-3 py-1 text-sm rounded hover:bg-gray-200">
-              1
-            </button>
-            <button className="px-3 py-1 text-sm rounded hover:bg-gray-200">
-              2
-            </button>
-            <button className="px-3 py-1 text-sm rounded bg-blue-500 text-white">
-              3
-            </button>
-            <button className="px-3 py-1 text-sm rounded hover:bg-gray-200">
-              4
-            </button>
-          </div>
-          <button className="px-1 py-1 text-sm">{productslocalization["next"]}</button>
+          {isEditModalOpen && selectedProduct && (
+            <Modal
+              isOpen={isEditModalOpen}
+              onClose={() => setIsEditModalOpen(false)}
+            >
+              <div className="p-6 top-28 bg-primary-200 w-[25rem] h-[32rem] rounded-lg shadow-2xl z-50 right-[33%] absolute">
+                <Input
+                  className="p-2 rounded-md mb-3"
+                  name="productName"
+                  value={selectedProduct.productName}
+                  onChange={handleEditChange}
+                  label={productslocalization['productName']}
+                  type="text"
+                />
+                <Input
+                  className="p-2 rounded-md mb-3"
+                  name="productPrice"
+                  value={selectedProduct.productPrice}
+                  onChange={handleEditChange}
+                  label={productslocalization['price']}
+                  type="number"
+                />
+                <Input
+                  className="p-2 rounded-md mb-3"
+                  name="productStock"
+                  value={selectedProduct.productStock}
+                  onChange={handleEditChange}
+                  label={productslocalization['stock']}
+                  type="number"
+                />
+                <Input
+                  className="p-2 rounded-md mb-3"
+                  name="productType"
+                  value={selectedProduct.productType}
+                  onChange={handleEditChange}
+                  label={productslocalization['type']}
+                  type="text"
+                />
+                <Input
+                  className="p-2 rounded-md mb-3"
+                  name="productStatus"
+                  value={selectedProduct.productStatus}
+                  onChange={handleEditChange}
+                  label={productslocalization['status']}
+                  type="text"
+                />
+                <Button
+                  onClick={handleEditSubmit}
+                  className="bg-primary-100 p-2 rounded-lg active:scale-95 mt-2 ml-[7.5rem]"
+                >
+                  {loading ? 'در حال ویرایش...' : 'ذخیره تغییرات'}
+                </Button>
+              </div>
+            </Modal>
+          )}
         </div>
       </div>
     </div>

@@ -8,6 +8,12 @@ export const pageLevelLocalization = {
   },
 };
 
+export const loginlocalization = {
+email : "ایمیل",
+password : "رمز عبور",
+login : "ورود"
+};
+
 export const asidebarlocalization = {
   parmisar : "پارمیسار",
   home : "صفحه اصلی",
@@ -20,6 +26,9 @@ export const asidebarlocalization = {
 
 export const Analysislocalization = {
   totalRevenue: 'درامد کل',
+  inovices : "فاکتور ها",
+  clients : "مشتری ها",
+  profit :"سود"
 };
 
 export const Headerlocalization = {
@@ -33,11 +42,10 @@ export const chartlocalization = {
 
 export const informationlocalization = {
   new: 'جدید',
-  weHaveAddedNew: 'جدید اضافه کرده ایم',
-  invoicingTemplates: 'الگوهای صورتحساب',
-  newTemplatesFocusedOn: "قالب های متمرکز بر کسب و کار" ,
-  helpingYou: 'به شما کمک می کند',
-  ImproveYour : "خود را بهبود ببخشید",
+  invoicingTemplates: "الگوهای صورت حساب جدید",
+  newTemplatesFocusedOn: ' قالب های متمرکز بر کسب و کار',
+  helpingYou: "که به شما کمک می کند",
+  ImproveYour: 'خود را بهبود ببخشید',
   downloadNow: 'همین الان دانلودش کن',
 };
 
@@ -49,11 +57,20 @@ export const productslocalization = {
   productID: 'شناسه محصول',
   price: 'قیمت',
   stock: 'موجودی',
-  type: 'نوع محصول',
-  status: 'شرایط محصول',
+  type:  "مدل گوشی",
+  status: 'وضعیت محصول',
   action: "کنترل محصول",
-  next: 'بعدی',
-  previous : 'قبلی',
+  delete : "حذف",
+  edit : "ویرایش"
+};
+
+export const modallocalization = {
+  save: 'ذخیره',
+  cancel: 'لغو',
+  inStock: 'موجود',
+  outOfStock: 'ناموجود',
+  comingSoon: 'به زودی',
+  discontinue : "متوقف شده",
 };
 
 export const profilelocalization = {

@@ -6,7 +6,7 @@ export default function Analysis() {
   return (
     <div className="bg-white h-[8rem] w-[91%] ml-16 mt-4 rounded-2xl shadow-md flex">
       <div className=" flex flex-col gap-2 justify-center justify-center items-center w-[27%] pr-8 border-r-2">
-        <div className="flex gap-3 items-center">
+        <div className="flex gap-3 items-center mr-10">
           <FaCircle className="text-orange-500 " />
           <p>{Analysislocalization['totalRevenue']}</p>
         </div>
@@ -20,9 +20,9 @@ export default function Analysis() {
       </div>
 
       <div className=" flex flex-col gap-2 justify-center items-center w-[28%] pr-8 border-r-2">
-        <div className="flex gap-3 items-center">
+        <div className="flex gap-3 items-center ml-7">
           <FaCircle className="text-green-500" />
-          <p>{Analysislocalization['totalRevenue']}</p>
+          <p>{Analysislocalization['inovices']}</p>
         </div>
         <div className="flex gap-5 items-center ml-20">
           <p className="font-semibold text-3xl">2,221</p>
@@ -34,9 +34,9 @@ export default function Analysis() {
       </div>
 
       <div className=" flex flex-col gap-2 justify-center items-center w-[28%] pr-8 border-r-2">
-        <div className="flex gap-3 items-center">
+        <div className="flex gap-3 items-center ml-8">
           <FaCircle className="text-blue-500" />
-          <p>{Analysislocalization['totalRevenue']}</p>
+          <p>{Analysislocalization['clients']}</p>
         </div>
         <div className="flex gap-5 items-center ml-20">
           <p className="font-semibold text-3xl">1,423</p>
@@ -48,9 +48,9 @@ export default function Analysis() {
       </div>
 
       <div className=" flex flex-col gap-2 justify-center items-center w-[27%] pr-8 border-r-2">
-        <div className="flex gap-3 items-center">
+        <div className="flex gap-3 items-center ml-3">
           <FaCircle className="text-pink-500" />
-          <p>{Analysislocalization['totalRevenue']}</p>
+          <p>{Analysislocalization['profit']}</p>
         </div>
         <div className="flex gap-5 items-center ml-20">
           <p className="font-semibold text-3xl">78%</p>

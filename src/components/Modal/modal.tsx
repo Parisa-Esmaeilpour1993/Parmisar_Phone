@@ -12,42 +12,116 @@ import {
   ModalOverlay,
   Select,
   useDisclosure,
-} from "@chakra-ui/react";
-import axios from "axios";
-import React from "react";
-import { FaPlus } from "react-icons/fa";
+} from '@chakra-ui/react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import React, { useState } from 'react';
+import { FaPlus } from 'react-icons/fa';
+import {
+  modallocalization,
+  productslocalization,
+} from '../../constants/localization/Localization';
+import { IpostProducts, postProducts } from '../Sevices/Products/postProducts';
+import { Iproduct } from '../../interfaces/interfaces';
+import Loading from '../Loading/Loading';
 
-export function InitialFocus() {
+const productTypes = [
+  'apple',
+  'xiaomi',
+  'samsung',
+  'huawei',
+  'nokia',
+  'microsoft',
+  'nothingPhone',
+  'google',
+];
+
+const productStatuses = [
+  { value: 'inStock', label: modallocalization['inStock'] },
+  { value: 'outOfStock', label: modallocalization['outOfStock'] },
+  { value: 'comingSoon', label: modallocalization['comingSoon'] },
+  { value: 'discontinue', label: modallocalization['discontinue'] },
+];
+
+export function InitialFocus({
+  setProducts,
+  fetchProducts, //rerender products list after add products
+}: {
+  setProducts: (products: Iproduct[]) => void;
+  fetchProducts: () => void; 
+}) {
+  const initialFormData: Iproduct = {
+    productName: '',
+    productPrice: '',
+    productStock: '',
+    productType: '',
+    productStatus: '',
+  };
+
+  const [formData, setFormData] = useState<Iproduct>(initialFormData);
+  const [loading, setLoading] = useState<boolean>(false);
+
+  
+  const handleChange = (
+    e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>
+  ) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  // ارسال محصول به سرور
+  const handleAddProducts = async (formData: IpostProducts) => {
+    setLoading(true);
+    try {
+      const response = await postProducts(formData);
+      if (response?.status === 201) {
+        toast.success('افزودن محصول موفقیت‌آمیز بود');
+        onClose();
+        setFormData(initialFormData);
+        // پس از افزودن محصول، محصولات جدید را از سرور بارگذاری می‌کنیم
+        fetchProducts();
+      } else {
+        toast.error('خطا در ارسال اطلاعات');
+      }
+    } catch (error) {
+      toast.error('افزودن محصول جدید موفقیت‌آمیز نبود');
+      console.error('خطا در ارسال درخواست:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    // اعتبارسنجی ساده فرم
+    if (
+      !formData.productName ||
+      !formData.productPrice ||
+      !formData.productStock ||
+      !formData.productType ||
+      !formData.productStatus
+    ) {
+      toast.error('تمامی فیلدها باید پر شوند');
+      return;
+    }
+    handleAddProducts(formData);
+  };
+
+  const handleCancel = () => {
+    setFormData(initialFormData);
+    onClose();
+  };
+
   const { isOpen, onOpen, onClose } = useDisclosure();
-
   const initialRef = React.useRef(null);
   const finalRef = React.useRef(null);
 
-
-    const addProductHandler = async (e) => {
-      e.preventDefault();
-      const form = e.target
-        try {
-          const response = await axios.post(
-            "https://676d5e440e299dd2ddff55b6.mockapi.io/shop",
-            {
-              product: form.productName.value,
-              price: form.price.value,
-              stock: form.stock.value,
-              type: form.type.value,
-              status: form.status.value,
-            }
-          );
-        } catch (error) {
-            console.log(error.message)
-        }
-    };
-
   return (
-    <>
+    <div className="absolute top-20 right-[4.3rem] ">
+      <ToastContainer />
       <Button onClick={onOpen} colorScheme="blue" size="lg">
-        {" "}
-        <FaPlus /> Add New Product
+        <FaPlus />
+        {productslocalization['addNewProduct']}
       </Button>
 
       <Modal
@@ -58,60 +132,93 @@ export function InitialFocus() {
       >
         <ModalOverlay />
         <ModalContent>
-          <form onSubmit={addProductHandler}>
-            <ModalHeader>Add New Product</ModalHeader>
+          <form onSubmit={handleSubmit}>
+            <ModalHeader>{productslocalization['addNewProduct']}</ModalHeader>
             <ModalCloseButton />
             <ModalBody pb={6}>
               <FormControl>
-                <FormLabel>Product Name</FormLabel>
-                <Input name="productName" placeholder="Product Name" />
+                <FormLabel>{productslocalization['productName']}</FormLabel>
+                <Input
+                  type="text"
+                  name="productName"
+                  placeholder={productslocalization['productName']}
+                  value={formData.productName}
+                  onChange={handleChange}
+                />
               </FormControl>
 
               <FormControl mt={4}>
-                <FormLabel>Price</FormLabel>
-                <Input placeholder="Price" type="number" name="price" />
+                <FormLabel>{productslocalization['price']}</FormLabel>
+                <Input
+                  placeholder={productslocalization['price']}
+                  type="number"
+                  name="productPrice"
+                  value={formData.productPrice}
+                  onChange={handleChange}
+                />
               </FormControl>
 
               <FormControl mt={4}>
-                <FormLabel>Stock</FormLabel>
-                <Input placeholder="Stock" type="number" name="stock" />
+                <FormLabel>{productslocalization['stock']}</FormLabel>
+                <Input
+                  placeholder={productslocalization['stock']}
+                  type="number"
+                  name="productStock"
+                  value={formData.productStock}
+                  onChange={handleChange}
+                />
               </FormControl>
 
               <FormControl mt={4}>
-                <FormLabel>Brand</FormLabel>
-                <Select placeholder="Select Brand" name="type">
-                  <option value="apple">Apple</option>
-                  <option value="xiaomi">Xiaomi</option>
-                  <option value="samsung">Samsung</option>
-                  <option value="huawei">Huawei</option>
-                  <option value="nokia">Nokia</option>
-                  <option value="microsoft">Microsoft</option>
-                  <option value="nothingPhone">NothingPhone</option>
-                  <option value="google">Google</option>
+                <FormLabel>{productslocalization['type']}</FormLabel>
+                <Select
+                  placeholder={productslocalization['type']}
+                  name="productType"
+                  value={formData.productType}
+                  onChange={handleChange}
+                >
+                  {productTypes.map(type => (
+                    <option key={type} value={type}>
+                      {type}
+                    </option>
+                  ))}
                 </Select>
               </FormControl>
 
               <FormControl mt={4}>
-                <FormLabel>Status</FormLabel>
-                <Select placeholder="Select Status" name="status">
-                  <option value="inStock">In Stock</option>
-                  <option value="outofStock">Out of Stock</option>
-                  <option value="comingSoon">ComingSoon</option>
-                  <option value="onsale">On sale</option>
-                  <option value="discontinue">Discontinue</option>
+                <FormLabel>{productslocalization['status']}</FormLabel>
+                <Select
+                  name="productStatus"
+                  value={formData.productStatus}
+                  onChange={handleChange}
+                >
+                  <option hidden selected>{productslocalization["status"]}</option>
+                  {productStatuses.map(status => (
+                    <option key={status.value} value={status.value}>
+                      {status.label}
+                    </option>
+                  ))}
                 </Select>
               </FormControl>
             </ModalBody>
 
             <ModalFooter>
-              <Button colorScheme="blue" mr={3} type="submit">
-                Save
+              {loading && <Loading />}
+              <Button
+                colorScheme="blue"
+                mr={3}
+                type="submit"
+                isLoading={loading}
+              >
+                {modallocalization['save']}
               </Button>
-              <Button onClick={onClose}>Cancel</Button>
+              <Button onClick={handleCancel}>
+                {modallocalization['cancel']}
+              </Button>
             </ModalFooter>
           </form>
         </ModalContent>
       </Modal>
-    </>
+    </div>
   );
 }

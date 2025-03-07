@@ -5,11 +5,11 @@ import prof from "./../../../assets/images/information.png"
 
 export default function Profile() {
   return (
-    <div className="flex flex-col gap-6 pt-5 pr-16 pl-10">
+    <div className="flex flex-col gap-6 pt-3 pr-16 pl-16">
       <h2 className="text-xl font-semibold">
         {profilelocalization['profile']}
       </h2>
-      <div className="flex gap-10 items-center mb-2">
+      <div className="flex gap-10 items-center ml-1">
         <img
           className="w-16 h-16 rounded-full"
           src={prof}
@@ -24,12 +24,12 @@ export default function Profile() {
           children={profilelocalization['removeProfile']}
         />
       </div>
-      <hr className="" />
-      <form action="" className="flex flex-col gap-7 justify-start items-start">
+      <hr/>
+      <form action="" className="flex flex-col gap-5 justify-start items-start">
         <div className="flex gap-10 ">
           <div>
             <Input
-              className="bg-transparent border border-gray-400 rounded-md p-2 w-[35rem]"
+              className="bg-transparent border border-gray-400 rounded-md p-1 w-[35rem]"
               label={profilelocalization['name']}
               name="fullName"
               type="text"
@@ -39,7 +39,7 @@ export default function Profile() {
           </div>
           <div>
             <Input
-              className="bg-transparent border border-gray-400 rounded-md p-2 w-[35rem]"
+              className="bg-transparent border border-gray-400 rounded-md p-1 w-[35rem]"
               label={profilelocalization['email']}
               name="email"
               type="email"
@@ -51,7 +51,7 @@ export default function Profile() {
         <div className="flex gap-10 ">
           <div>
             <Input
-              className="bg-transparent border border-gray-400 rounded-md p-2 w-[35rem]"
+              className="bg-transparent border border-gray-400 rounded-md p-1 w-[35rem]"
               label={profilelocalization['userName']}
               name="fullName"
               type="text"
@@ -61,7 +61,7 @@ export default function Profile() {
           </div>
           <div>
             <Input
-              className="bg-transparent border border-gray-400 rounded-md p-2 w-[35rem]"
+              className="bg-transparent border border-gray-400 rounded-md p-1 w-[35rem]"
               label={profilelocalization['phonNumber']}
               name="email"
               type="email"
@@ -80,7 +80,7 @@ export default function Profile() {
           ></textarea>
         </div>
         <Button
-          className="bg-primary-200 w-40 h-9 mt-1 rounded-lg text-white active:scale-95"
+          className="bg-primary-200 w-40 h-9 rounded-lg text-white active:scale-95"
           children={profilelocalization['updateProfile']}
         />
       </form>

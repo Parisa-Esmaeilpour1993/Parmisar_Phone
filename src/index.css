@@ -6,3 +6,7 @@
     background-image: url(./assets/images/information.png);
     background-size: cover;
 }
+
+.table-container::-webkit-scrollbar{
+    display: none;
+}
