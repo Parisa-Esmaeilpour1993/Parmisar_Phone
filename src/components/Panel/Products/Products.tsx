@@ -1,9 +1,11 @@
+
+import { FaPlus } from "react-icons/fa";
+import { BiFilterAlt } from "react-icons/bi";
+import { CiExport } from "react-icons/ci";
+import { InitialFocus } from "../Modal/modal";
 import { useEffect, useState } from 'react';
-import {
-  asidebarlocalization,
-  modallocalization,
-  productslocalization,
-} from '../../../constants/localization/Localization';
+<<<<<<< HEAD
+import { asidebarlocalization, productslocalization , modallocalization} from "../../../constants/localization/Localization";
 import { Iproduct } from '../../../interfaces/interfaces';
 import Swal from 'sweetalert2';
 import { deleteProduct } from '../../Sevices/Products/deleteProducts';
@@ -12,14 +14,14 @@ import { Modal } from '@chakra-ui/react';
 import Input from '../../shared/input/Input';
 import Button from '../../shared/button/Button';
 import axios from 'axios';
+import { BASE_URL } from "../../../constants/api/Api";
 
 export default function Products({ formData }: { formData: Iproduct[] }) {
   const [products, setProducts] = useState<Iproduct[]>(formData || []);
   const [selectedProduct, setSelectedProduct] = useState<Iproduct | null>(null);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
-
-  const fetchProducts = async (products?: Iproduct[]) => {
+const fetchProducts = async (products?: Iproduct[]) => {
      try {
        const response = await axios.get(
          'https://676d5e440e299dd2ddff55b6.mockapi.io/shop'
@@ -29,7 +31,7 @@ export default function Products({ formData }: { formData: Iproduct[] }) {
        console.error('خطا در دریافت محصولات:', error);
      }
    };
- 
+
    useEffect(() => {
      if (!formData || formData.length === 0) {
        fetchProducts();
@@ -37,9 +39,8 @@ export default function Products({ formData }: { formData: Iproduct[] }) {
        setProducts(formData);
      }
    }, [formData]);
-
-
-  const handleDelete = async (id: string) => {
+ 
+   const handleDelete = async (id: string) => {
     try {
       const result = await Swal.fire({
         title: 'آیا مطمئن هستید؟',
@@ -51,8 +52,7 @@ export default function Products({ formData }: { formData: Iproduct[] }) {
         confirmButtonText: 'بله، حذف شود!',
         cancelButtonText: 'لغو',
       });
-
-      if (result.isConfirmed) {
+ if (result.isConfirmed) {
         const success = await deleteProduct(id);
         if (success) {
           setProducts(prev => prev.filter(p => p.id !== id));
@@ -67,9 +67,7 @@ export default function Products({ formData }: { formData: Iproduct[] }) {
     }
   };
 
-
-
-  const handleEditClick = (product: Iproduct) => {
+   const handleEditClick = (product: Iproduct) => {
     setSelectedProduct(product);
     setIsEditModalOpen(true);
   };
@@ -119,6 +117,10 @@ const statusLocalizationHandler =(status:string)=>{
       return modallocalization['discontinue'];
   }
 }
+
+
+export default function Products() {
+
 
 
   return (

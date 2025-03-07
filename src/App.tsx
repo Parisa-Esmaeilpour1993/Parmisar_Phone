@@ -1,17 +1,18 @@
-import {Route,Routes } from "react-router"
+import { Route, Routes } from "react-router";
+import { AsideProvider } from "./components/context/context";
 import { routesArray } from "./constants/routes";
-
-
 
 function App() {
   return (
     <>
-<Routes>
-{routesArray.map((route, index) => (
-<Route key={index} path={route.path} element={route.element} />
-))}
-</Routes>
-</>
+      <AsideProvider>
+        <Routes>
+          {routesArray.map((route, index) => (
+            <Route key={index} path={route.path} element={route.element} />
+          ))}
+        </Routes>
+      </AsideProvider>
+    </>
   );
 }
 

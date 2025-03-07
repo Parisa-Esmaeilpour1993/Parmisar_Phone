@@ -15,13 +15,13 @@ login : "ورود"
 };
 
 export const asidebarlocalization = {
-  parmisar : "پارمیسار",
-  home : "صفحه اصلی",
-  products : "محصولات",
-  message : "پیام ها",
-  setting : "تنظیمات",
-  help :"پشتیبانی",
-  logOut : "خروج از حساب کاربری"
+  parmisar: "پارمیسار",
+  home: "صفحه اصلی",
+  products: "محصولات",
+  orders: "سفارشات",
+  setting: "تنظیمات",
+  help: "پشتیبانی",
+  logOut: "خروج از حساب کاربری",
 };
 
 export const Analysislocalization = {
@@ -32,12 +32,12 @@ export const Analysislocalization = {
 };
 
 export const Headerlocalization = {
-  palaceHolder: 'جستجو',
-  admin : 'ادمین'
+  palaceHolder: "جستجو",
+  admin: "ادمین",
 };
 
 export const chartlocalization = {
-  monthlyRevenue : "درامد ماهیانه"
+  monthlyRevenue: "درامد ماهیانه",
 };
 
 export const informationlocalization = {
@@ -87,4 +87,20 @@ phonNumber : "شماره موبایل",
 typePhoneNumber : "شماره خود را وارد کنید",
 bio : "درباره من",
 updateProfile : "به روزرسانی اطلاعات"
+}
+export const Orderlocalization = {
+  oredr : "سفارشات",
+  userName:"نام کاربر",
+  orderTotalPrice:"مبلغ سفارش",
+  status : "وضعیت سفارش"
+}
+export const OrderModalLocalization ={
+  title : "سفارش کاربر",
+  userName : "نام کاربری",
+  OrderList : "لیست سفارشات",
+  productName : "نام محصول",
+  productPrice : "قیمت محصول",
+  count : "تعداد",
+  tottalPrice : "قیمت کل",
+  close : "خروج"
 }
