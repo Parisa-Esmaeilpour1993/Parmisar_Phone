@@ -17,11 +17,11 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import React, { useState } from 'react';
 import { FaPlus } from 'react-icons/fa';
-import { modallocalization, productslocalization } from '../../../constants/localization/Localization';
-import { Iproduct } from '../../../interfaces/interfaces';
-import { IpostProducts, postProducts } from '../../Sevices/Products/postProducts';
-import Loading from '../../Loading/Loading';
 
+import { IpostProducts, postProducts } from '../Sevices/Products/postProducts';
+import { Iproduct } from '../../interfaces/interfaces';
+import Loading from '../Loading/Loading';
+import { modallocalization, productslocalization } from '../../constants/localization/Localization';
 
 const productTypes = [
   'apple',
@@ -41,12 +41,11 @@ const productStatuses = [
   { value: 'discontinue', label: modallocalization['discontinue'] },
 ];
 
-export function InitialFocus({
+export default function InitialFocus({
   setProducts,
   fetchProducts, //rerender products list after add products
 }: {
   setProducts: (products: Iproduct[]) => void;
-
   fetchProducts: () => void; 
 }) {
   const initialFormData: Iproduct = {

@@ -1,10 +1,4 @@
-
-import { FaPlus } from "react-icons/fa";
-import { BiFilterAlt } from "react-icons/bi";
-import { CiExport } from "react-icons/ci";
-import { InitialFocus } from "../Modal/modal";
 import { useEffect, useState } from 'react';
-<<<<<<< HEAD
 import { asidebarlocalization, productslocalization , modallocalization} from "../../../constants/localization/Localization";
 import { Iproduct } from '../../../interfaces/interfaces';
 import Swal from 'sweetalert2';
@@ -14,14 +8,15 @@ import { Modal } from '@chakra-ui/react';
 import Input from '../../shared/input/Input';
 import Button from '../../shared/button/Button';
 import axios from 'axios';
-import { BASE_URL } from "../../../constants/api/Api";
+import { InitialFocus } from '../Modal/modal';
+
 
 export default function Products({ formData }: { formData: Iproduct[] }) {
   const [products, setProducts] = useState<Iproduct[]>(formData || []);
   const [selectedProduct, setSelectedProduct] = useState<Iproduct | null>(null);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
-const fetchProducts = async (products?: Iproduct[]) => {
+  const fetchProducts = async (products?: Iproduct[]) => {
      try {
        const response = await axios.get(
          'https://676d5e440e299dd2ddff55b6.mockapi.io/shop'
@@ -39,6 +34,10 @@ const fetchProducts = async (products?: Iproduct[]) => {
        setProducts(formData);
      }
    }, [formData]);
+   
+     useEffect(() => {
+       fetchProducts(); // بارگذاری محصولات هنگام بارگذاری صفحه
+     }, []);
  
    const handleDelete = async (id: string) => {
     try {
@@ -52,6 +51,7 @@ const fetchProducts = async (products?: Iproduct[]) => {
         confirmButtonText: 'بله، حذف شود!',
         cancelButtonText: 'لغو',
       });
+
  if (result.isConfirmed) {
         const success = await deleteProduct(id);
         if (success) {
@@ -118,13 +118,12 @@ const statusLocalizationHandler =(status:string)=>{
   }
 }
 
-
-export default function Products() {
-
-
-
   return (
     <div>
+        <InitialFocus
+                  setProducts={setProducts}
+                  fetchProducts={fetchProducts}
+                />
       <div className="flex justify-between items-center px-16 py-5 gap-5 mt-3">
         <p className="font-semibold text-2xl">
           {asidebarlocalization['products']}
