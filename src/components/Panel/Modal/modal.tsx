@@ -12,79 +12,88 @@ import {
   ModalOverlay,
   Select,
   useDisclosure,
-} from '@chakra-ui/react';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import React, { useState } from 'react';
-import { FaPlus } from 'react-icons/fa';
-import { modallocalization, productslocalization } from '../../../constants/localization/Localization';
-import { Iproduct } from '../../../interfaces/interfaces';
-import { IpostProducts, postProducts } from '../../Sevices/Products/postProducts';
-import Loading from '../../Loading/Loading';
-
+} from "@chakra-ui/react";
+import React, { useState } from "react";
+import { FaPlus } from "react-icons/fa";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import {
+  modallocalization,
+  productslocalization,
+} from "../../../constants/localization/Localization";
+import { Iproduct } from "../../../interfaces/interfaces";
+import Loading from "../../Loading/Loading";
+import {
+  IpostProducts,
+  postProducts,
+} from "../../Sevices/Products/postProducts";
 
 const productTypes = [
-  'apple',
-  'xiaomi',
-  'samsung',
-  'huawei',
-  'nokia',
-  'microsoft',
-  'nothingPhone',
-  'google',
+  "apple",
+  "xiaomi",
+  "samsung",
+  "huawei",
+  "nokia",
+  "microsoft",
+  "nothingPhone",
+  "google",
 ];
 
 const productStatuses = [
-  { value: 'inStock', label: modallocalization['inStock'] },
-  { value: 'outOfStock', label: modallocalization['outOfStock'] },
-  { value: 'comingSoon', label: modallocalization['comingSoon'] },
-  { value: 'discontinue', label: modallocalization['discontinue'] },
+  { value: "inStock", label: modallocalization["inStock"] },
+  // { value: "outOfStock", label: modallocalization["outOfStock"] },
+  { value: "comingSoon", label: modallocalization["comingSoon"] },
+  { value: "discontinue", label: modallocalization["discontinue"] },
 ];
 
 export function InitialFocus({
   setProducts,
-  fetchProducts, //rerender products list after add products
+  fetchProducts,
 }: {
   setProducts: (products: Iproduct[]) => void;
 
-  fetchProducts: () => void; 
+  fetchProducts: () => void;
 }) {
   const initialFormData: Iproduct = {
-    productName: '',
-    productPrice: '',
-    productStock: '',
-    productType: '',
-    productStatus: '',
+    productName: "",
+    productPrice: "",
+    productStock: "",
+    productType: "",
+    productStatus: "",
   };
 
   const [formData, setFormData] = useState<Iproduct>(initialFormData);
   const [loading, setLoading] = useState<boolean>(false);
 
-  
   const handleChange = (
     e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>
   ) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // ارسال محصول به سرور
   const handleAddProducts = async (formData: IpostProducts) => {
     setLoading(true);
+
+    if (formData.productStock === "0") {
+      toast.error(modallocalization.error);
+      setLoading(false);
+      return;
+    }
+
     try {
       const response = await postProducts(formData);
       if (response?.status === 201) {
-        toast.success('افزودن محصول موفقیت‌آمیز بود');
+        toast.success("افزودن محصول موفقیت‌آمیز بود");
         onClose();
         setFormData(initialFormData);
-        // پس از افزودن محصول، محصولات جدید را از سرور بارگذاری می‌کنیم
         fetchProducts();
       } else {
-        toast.error('خطا در ارسال اطلاعات');
+        toast.error("خطا در ارسال اطلاعات");
       }
     } catch (error) {
-      toast.error('افزودن محصول جدید موفقیت‌آمیز نبود');
-      console.error('خطا در ارسال درخواست:', error);
+      toast.error("افزودن محصول جدید موفقیت‌آمیز نبود");
+      console.error("خطا در ارسال درخواست:", error);
     } finally {
       setLoading(false);
     }
@@ -92,7 +101,6 @@ export function InitialFocus({
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // اعتبارسنجی ساده فرم
     if (
       !formData.productName ||
       !formData.productPrice ||
@@ -100,7 +108,7 @@ export function InitialFocus({
       !formData.productType ||
       !formData.productStatus
     ) {
-      toast.error('تمامی فیلدها باید پر شوند');
+      toast.error("تمامی فیلدها باید پر شوند");
       return;
     }
     handleAddProducts(formData);
@@ -118,9 +126,13 @@ export function InitialFocus({
   return (
     <div className="absolute top-20 right-[4.3rem] ">
       <ToastContainer />
-      <Button onClick={onOpen} colorScheme="blue" size="lg">
+      <Button
+        onClick={onOpen}
+        colorScheme="blue"
+        className="flex gap-2 items-center justify-center w-56"
+      >
         <FaPlus />
-        {productslocalization['addNewProduct']}
+        {productslocalization["addNewProduct"]}
       </Button>
 
       <Modal
@@ -128,55 +140,61 @@ export function InitialFocus({
         finalFocusRef={finalRef}
         isOpen={isOpen}
         onClose={onClose}
+        isCentered
       >
         <ModalOverlay />
         <ModalContent>
           <form onSubmit={handleSubmit}>
-            <ModalHeader>{productslocalization['addNewProduct']}</ModalHeader>
-            <ModalCloseButton />
+            <ModalHeader>{productslocalization["addNewProduct"]}</ModalHeader>
+            <ModalCloseButton className="mt-2" />
+
             <ModalBody pb={6}>
-              <FormControl>
-                <FormLabel>{productslocalization['productName']}</FormLabel>
+              <FormControl className="flex flex-col items-end">
+                <FormLabel>{productslocalization["productName"]}</FormLabel>
                 <Input
                   type="text"
                   name="productName"
-                  placeholder={productslocalization['productName']}
+                  placeholder={productslocalization["productName"]}
                   value={formData.productName}
                   onChange={handleChange}
+                  dir="rtl"
                 />
               </FormControl>
 
-              <FormControl mt={4}>
-                <FormLabel>{productslocalization['price']}</FormLabel>
+              <FormControl mt={4} className="flex flex-col items-end">
+                <FormLabel>{productslocalization["price"]}</FormLabel>
                 <Input
-                  placeholder={productslocalization['price']}
+                  placeholder={productslocalization["price"]}
                   type="number"
                   name="productPrice"
                   value={formData.productPrice}
                   onChange={handleChange}
+                  dir="rtl"
                 />
               </FormControl>
 
-              <FormControl mt={4}>
-                <FormLabel>{productslocalization['stock']}</FormLabel>
+              <FormControl mt={4} className="flex flex-col items-end">
+                <FormLabel>{productslocalization["stock"]}</FormLabel>
                 <Input
-                  placeholder={productslocalization['stock']}
+                  placeholder={productslocalization["stock"]}
                   type="number"
                   name="productStock"
                   value={formData.productStock}
                   onChange={handleChange}
+                  dir="rtl"
                 />
               </FormControl>
 
-              <FormControl mt={4}>
-                <FormLabel>{productslocalization['type']}</FormLabel>
+              <FormControl mt={4} className="flex flex-col items-end">
+                <FormLabel>{productslocalization["type"]}</FormLabel>
                 <Select
-                  placeholder={productslocalization['type']}
+                  placeholder={productslocalization["type"]}
                   name="productType"
                   value={formData.productType}
                   onChange={handleChange}
+                  textAlign="right"
                 >
-                  {productTypes.map(type => (
+                  {productTypes.map((type) => (
                     <option key={type} value={type}>
                       {type}
                     </option>
@@ -184,15 +202,18 @@ export function InitialFocus({
                 </Select>
               </FormControl>
 
-              <FormControl mt={4}>
-                <FormLabel>{productslocalization['status']}</FormLabel>
+              <FormControl mt={4} className="flex flex-col items-end">
+                <FormLabel>{productslocalization["status"]}</FormLabel>
                 <Select
                   name="productStatus"
                   value={formData.productStatus}
                   onChange={handleChange}
+                  textAlign="right"
                 >
-                  <option hidden selected>{productslocalization["status"]}</option>
-                  {productStatuses.map(status => (
+                  <option hidden selected>
+                    {productslocalization["status"]}
+                  </option>
+                  {productStatuses.map((status) => (
                     <option key={status.value} value={status.value}>
                       {status.label}
                     </option>
@@ -209,10 +230,10 @@ export function InitialFocus({
                 type="submit"
                 isLoading={loading}
               >
-                {modallocalization['save']}
+                {modallocalization["save"]}
               </Button>
               <Button onClick={handleCancel}>
-                {modallocalization['cancel']}
+                {modallocalization["cancel"]}
               </Button>
             </ModalFooter>
           </form>

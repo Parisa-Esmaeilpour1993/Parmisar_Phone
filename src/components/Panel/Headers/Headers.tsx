@@ -39,7 +39,7 @@ export default function Headers() {
         className="flex gap-7 items-center cursor-pointer"
         onClick={() => setActiveComponent("admin")}
       >
-        <FaBell className="text-2xl " />
+        <FaBell className="text-2xl animate-bounce" />
 
         <div className="flex gap-3">
           <img className="w-12 h-12" src={profile} alt="profile" />

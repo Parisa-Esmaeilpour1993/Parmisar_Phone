@@ -21,7 +21,7 @@ export function OpenOrderModal({ order, isOpen, onClose }: ModalProps) {
   return (
     <Modal onClose={onClose} isOpen={isOpen} isCentered>
       <ModalOverlay />
-      <ModalContent>
+      <ModalContent dir="rtl">
         <ModalHeader>{OrderModalLocalization.title}</ModalHeader>
         <ModalBody>
           <div className="flex gap-5">

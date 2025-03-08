@@ -28,8 +28,6 @@ export default function Table() {
     switch (status) {
       case true:
         return "bg-green-400";
-      //   case "sending":
-      //     return "bg-yellow-300";
       case false:
         return "bg-red-500";
       default:
@@ -43,7 +41,7 @@ export default function Table() {
   };
 
   return (
-    <div className="overflow-y-auto max-h-[700px] shadow-xl">
+    <div className="overflow-y-auto max-h-[72vh] shadow-xl">
       <table className="w-full bg-white border-collapse text-center relative ">
         <thead className="bg-gray-200">
           <tr>

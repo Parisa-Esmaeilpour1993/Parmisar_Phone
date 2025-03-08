@@ -5,7 +5,7 @@ interface InputProps {
   value: string;
   placeholder?: string;
   className?: string;
-  onChange?: (e:React.ChangeEvent<HTMLInputElement >) => void;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export default function Input({
@@ -20,13 +20,14 @@ export default function Input({
   return (
     <div className="flex flex-col gap-2">
       <label dir="rtl">{label}:</label>
-      <input 
+      <input
         type={type}
         name={name}
         value={value}
         placeholder={placeholder}
         className={className}
         onChange={onChange}
+        dir="rtl"
       />
     </div>
   );
