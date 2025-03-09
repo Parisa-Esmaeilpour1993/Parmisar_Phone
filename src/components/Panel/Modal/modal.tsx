@@ -124,7 +124,7 @@ export function InitialFocus({
   const finalRef = React.useRef(null);
 
   return (
-    <div className="absolute top-20 right-[4.3rem] ">
+    <div className="absolute top-20 left-[4rem] mt-6">
       <ToastContainer />
       <Button
         onClick={onOpen}

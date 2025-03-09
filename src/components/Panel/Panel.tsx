@@ -2,17 +2,16 @@ import Asidebar from "./Asidebar/Asidebar";
 import Headers from "./Headers/Headers";
 import Products from "./Products/Products";
 import Profile from "./Profile/Profile";
-import { useEffect, useState } from "react";
-import axios from "axios";
+import { useState } from "react";
 import { Iproduct } from "../../interfaces/interfaces";
 import Home from "./Home/Home";
 import { useContext } from "react";
 import Order from "./Order/Order";
 import AsideContext from "../context/context";
-import { InitialFocus } from "./Modal/modal";
 
 export default function Panel() {
   const [products, setProducts] = useState<Iproduct[]>([]);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const asideContext = useContext(AsideContext);
   if (!asideContext) {
@@ -26,9 +25,9 @@ export default function Panel() {
       case "home":
         return <Home />;
       case "products":
-        return <Products formData={products} />;
+        return <Products formData={products} searchQuery={searchQuery} />;
       case "order":
-        return <Order />;
+        return <Order searchQuery={searchQuery} />;
       case "admin":
         return <Profile />;
     }
@@ -36,9 +35,9 @@ export default function Panel() {
 
   return (
     <div>
-      <div className="bg-[#f6f6f6] h-screen flex gap-5">
-        <div className="w-full">
-          <Headers />
+      <div className="bg-[#f6f6f6] h-screen flex gap-5 w-full">
+        <div className="w-[80%]">
+          <Headers onSearch={setSearchQuery} />
           {renderComponents()}
         </div>
         <div className="w-[20%] shadow-xl">

@@ -96,6 +96,10 @@ export const Orderlocalization = {
   userName: "نام کاربر",
   orderTotalPrice: "مبلغ سفارش",
   status: "وضعیت سفارش",
+  noResult: ".نتیجه ای یافت نشد",
+  send: "ارسال شده",
+  sending: "در حال ارسال",
+  loading: "...در حال بارگذاری",
 };
 export const OrderModalLocalization = {
   title: "سفارش کاربر",

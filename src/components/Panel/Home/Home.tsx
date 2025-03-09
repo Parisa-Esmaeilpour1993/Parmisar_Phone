@@ -4,11 +4,11 @@ import Information from "../Information/Information";
 
 export default function Home() {
   return (
-    <div>
+    <div className="px-12 pt-5">
       <Analysis />
-      <div className="flex">
-        <Chart />
+      <div className="flex items-center justify-between">
         <Information />
+        <Chart />
       </div>
     </div>
   );

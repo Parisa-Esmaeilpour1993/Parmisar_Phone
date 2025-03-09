@@ -2,7 +2,7 @@ import { informationlocalization } from "../../../constants/localization/Localiz
 
 export default function Information() {
   return (
-    <div className="information-bg h-[21rem] w-[29%] ml-5 mt-5 rounded-3xl p-9 shadow-md text-right">
+    <div className="information-bg h-[21rem] w-[30%] mt-5 rounded-3xl p-9 shadow-md text-right">
       <p className="bg-white rounded-xl w-16 h-9 px-2 py-1 text-blue-400 text-center animate-pulse">
         {informationlocalization["new"]}
       </p>

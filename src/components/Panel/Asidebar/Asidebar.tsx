@@ -25,13 +25,13 @@ export default function Asidebar() {
 
   return (
     <div className="flex flex-col gap-32 items-center pt-16">
-      <div className="flex gap-2">
+      <div className="flex justify-end gap-2">
         <img className="w-8 h-10 items-center" src={logo} alt="logo" />
         <p className="text-2xl font-bold">{asidebarlocalization["parmisar"]}</p>
       </div>
       <div className="flex flex-col gap-8">
         <button
-          className={`flex items-center gap-2 px-2 py-1 rounded-lg ${
+          className={`flex items-center justify-end gap-2 px-2 py-1 rounded-lg ${
             activeComponent === "home" ? "bg-primary-200 text-white" : ""
           }`}
           onClick={() => setActiveComponent("home")}
@@ -40,7 +40,7 @@ export default function Asidebar() {
           <IoHomeSharp />
         </button>
         <button
-          className={`flex items-center gap-2 px-2 py-1 rounded-lg ${
+          className={`flex items-center justify-end gap-2 px-2 py-1 rounded-lg ${
             activeComponent === "products" ? "bg-primary-200 text-white" : ""
           }`}
           onClick={() => setActiveComponent("products")}
@@ -49,7 +49,7 @@ export default function Asidebar() {
           <AiFillProduct />
         </button>
         <button
-          className={`flex items-center gap-2 px-2 py-1 rounded-lg ${
+          className={`flex items-center justify-end gap-2 px-2 py-1 rounded-lg ${
             activeComponent === "order" ? "bg-primary-200 text-white" : ""
           }`}
           onClick={() => setActiveComponent("order")}
@@ -58,7 +58,10 @@ export default function Asidebar() {
           <BiSolidMessageDetail />
         </button>
       </div>
-      <button className="flex items-center gap-2 " onClick={handleLogout}>
+      <button
+        className="flex items-center gap-2 justify-end"
+        onClick={handleLogout}
+      >
         <p>{asidebarlocalization["logOut"]}</p>
         <CiLogout />
       </button>
