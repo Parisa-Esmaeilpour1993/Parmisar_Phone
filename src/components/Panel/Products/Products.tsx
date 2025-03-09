@@ -196,6 +196,10 @@ export default function Products({
     { value: "discontinue", label: modallocalization["discontinue"] },
   ];
 
+  const filteredProducts = products.filter((product) =>
+    product.productName.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
     <div className="px-16 pt-4">
       <InitialFocus setProducts={setProducts} fetchProducts={fetchProducts} />
@@ -233,8 +237,8 @@ export default function Products({
               </tr>
             </thead>
             <tbody>
-              {products.length > 0 ? (
-                products.map((item) => (
+              {filteredProducts.length > 0 ? (
+                filteredProducts.map((item) => (
                   <tr
                     key={item.id}
                     className={`border-b ${
