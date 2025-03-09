@@ -345,7 +345,7 @@ export default function Products({
                   name="productType"
                   value={selectedProduct.productType}
                   onChange={handleEditChange}
-                  className="p-2 rounded-md mb-3 w-full border border-gray-300"
+                  className="p-2 rounded-md mb-3 w-full border border-gray-300 text-right"
                 >
                   <option hidden>{productslocalization["type"]}</option>
                   {productTypes.map((type) => (
@@ -361,7 +361,7 @@ export default function Products({
                   name="productStatus"
                   value={selectedProduct.productStatus}
                   onChange={handleEditChange}
-                  className="p-2 rounded-md mb-3 w-full border border-gray-300"
+                  className="p-2 rounded-md mb-3 w-full border border-gray-300 text-right"
                 >
                   <option hidden>{productslocalization["status"]}</option>
                   {productStatuses.map((status) => (

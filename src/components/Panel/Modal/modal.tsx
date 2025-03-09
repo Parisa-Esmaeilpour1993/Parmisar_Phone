@@ -84,16 +84,16 @@ export function InitialFocus({
     try {
       const response = await postProducts(formData);
       if (response?.status === 201) {
-        toast.success("افزودن محصول موفقیت‌آمیز بود");
+        toast.success(modallocalization.addedSuccessfully);
         onClose();
         setFormData(initialFormData);
         fetchProducts();
       } else {
-        toast.error("خطا در ارسال اطلاعات");
+        toast.error(modallocalization.errorInData);
       }
     } catch (error) {
-      toast.error("افزودن محصول جدید موفقیت‌آمیز نبود");
-      console.error("خطا در ارسال درخواست:", error);
+      toast.error(modallocalization.unSuccessfullyAdded);
+      console.error(modallocalization.errorInRequest, error);
     } finally {
       setLoading(false);
     }
@@ -108,7 +108,7 @@ export function InitialFocus({
       !formData.productType ||
       !formData.productStatus
     ) {
-      toast.error("تمامی فیلدها باید پر شوند");
+      toast.error(modallocalization.allFieldRequired);
       return;
     }
     handleAddProducts(formData);
