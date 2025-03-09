@@ -1,4 +1,3 @@
-import { Modal } from "@chakra-ui/react";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
@@ -12,10 +11,11 @@ import {
 import { Iproduct } from "../../../interfaces/interfaces";
 import { deleteProduct } from "../../Sevices/Products/deleteProducts";
 import { updateItem } from "../../Sevices/Products/editProducts";
-import Button from "../../shared/button/Button";
-import Input from "../../shared/input/Input";
 import { InitialFocus } from "../Modal/modal";
+import EditProductModal from "./EditProductModal";
 import ProductTable from "./ProductTable";
+import { productStatuses } from "../../../utils/productStatus";
+import { productTypes } from "../../../utils/productType";
 
 export default function Products({
   formData,
@@ -148,24 +148,6 @@ export default function Products({
     }
   };
 
-  const productTypes = [
-    "apple",
-    "xiaomi",
-    "samsung",
-    "huawei",
-    "nokia",
-    "microsoft",
-    "nothingPhone",
-    "google",
-  ];
-
-  const productStatuses = [
-    { value: "inStock", label: modallocalization["inStock"] },
-    { value: "outOfStock", label: modallocalization["outOfStock"] },
-    { value: "comingSoon", label: modallocalization["comingSoon"] },
-    { value: "discontinue", label: modallocalization["discontinue"] },
-  ];
-
   useEffect(() => {
     if (searchQuery.trim() === "") {
       setFilteredProducts(products);
@@ -196,85 +178,17 @@ export default function Products({
             noResults={noResults}
           />
           {isEditModalOpen && selectedProduct && (
-            <Modal
+            <EditProductModal
               isOpen={isEditModalOpen}
               onClose={() => setIsEditModalOpen(false)}
-            >
-              <div className="p-6 top-20 bg-primary-200 w-[25rem] h-[32rem] rounded-lg shadow-2xl z-50 right-1/3 absolute">
-                <Input
-                  className="p-2 rounded-md mb-3"
-                  name="productName"
-                  value={selectedProduct.productName}
-                  onChange={handleEditChange}
-                  label={productslocalization["productName"]}
-                  type="text"
-                />
-                <Input
-                  className="p-2 rounded-md mb-3"
-                  name="productPrice"
-                  value={selectedProduct.productPrice}
-                  onChange={handleEditChange}
-                  label={productslocalization["price"]}
-                  type="number"
-                />
-                <Input
-                  className="p-2 rounded-md mb-3"
-                  name="productStock"
-                  value={selectedProduct.productStock}
-                  onChange={handleEditChange}
-                  label={productslocalization["stock"]}
-                  type="number"
-                />
-                <label className="mb-1 flex justify-end">
-                  {productslocalization["type"]}
-                </label>
-                <select
-                  name="productType"
-                  value={selectedProduct.productType}
-                  onChange={handleEditChange}
-                  className="p-2 rounded-md mb-3 w-full border border-gray-300 text-right"
-                >
-                  <option hidden>{productslocalization["type"]}</option>
-                  {productTypes.map((type) => (
-                    <option key={type} value={type}>
-                      {type}
-                    </option>
-                  ))}
-                </select>
-                <label className="mb-1 flex justify-end">
-                  {productslocalization["status"]}
-                </label>
-                <select
-                  name="productStatus"
-                  value={selectedProduct.productStatus}
-                  onChange={handleEditChange}
-                  className="p-2 rounded-md mb-3 w-full border border-gray-300 text-right"
-                >
-                  <option hidden>{productslocalization["status"]}</option>
-                  {productStatuses.map((status) => (
-                    <option key={status.value} value={status.value}>
-                      {status.label}
-                    </option>
-                  ))}
-                </select>
-                <div className="flex gap-4 items-center justify-center">
-                  <Button
-                    onClick={handleEditSubmit}
-                    className="bg-primary-100 p-2 rounded-lg active:scale-95 mt-2 hover:bg-primary-200 hover:font-semibold"
-                  >
-                    {loading
-                      ? modallocalization.editing
-                      : modallocalization.saveChanges}
-                  </Button>
-                  <Button
-                    onClick={() => setIsEditModalOpen(false)}
-                    className="bg-primary-100 p-2 rounded-lg active:scale-95 mt-2 hover:bg-primary-200 hover:font-semibold"
-                  >
-                    {modallocalization.cancel}
-                  </Button>
-                </div>
-              </div>
-            </Modal>
+              selectedProduct={selectedProduct}
+              handleEditChange={handleEditChange}
+              handleEditSubmit={handleEditSubmit}
+              loading={loading}
+              productTypes={productTypes}
+              productStatuses={productStatuses}
+              modallocalization={modallocalization}
+            />
           )}
         </div>
       </div>
