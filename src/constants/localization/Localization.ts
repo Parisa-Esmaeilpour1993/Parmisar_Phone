@@ -61,6 +61,7 @@ export const productslocalization = {
   action: "کنترل محصول",
   delete: "حذف",
   edit: "ویرایش",
+  noProductsFound: ".محصولی یافت نشد",
 };
 
 export const modallocalization = {

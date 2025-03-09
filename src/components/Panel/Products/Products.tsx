@@ -1,6 +1,7 @@
 import { Modal } from "@chakra-ui/react";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 import {
   asidebarlocalization,
@@ -13,7 +14,6 @@ import { updateItem } from "../../Sevices/Products/editProducts";
 import Button from "../../shared/button/Button";
 import Input from "../../shared/input/Input";
 import { InitialFocus } from "../Modal/modal";
-import { toast } from "react-toastify";
 
 export default function Products({
   formData,
@@ -26,7 +26,8 @@ export default function Products({
   const [selectedProduct, setSelectedProduct] = useState<Iproduct | null>(null);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [showNoProductMessage, setShowNoProductMessage] = useState(false);
+  const [filteredProducts, setFilteredProducts] = useState<Iproduct[]>([]);
+  const [noResults, setNoResults] = useState(false);
 
   const fetchProducts = async () => {
     try {
@@ -38,28 +39,15 @@ export default function Products({
       console.error("خطا در دریافت محصولات:", error);
     }
   };
-
   useEffect(() => {
+    fetchProducts();
+
     if (!formData || formData.length === 0) {
       fetchProducts();
     } else {
       setProducts(formData);
     }
   }, [formData]);
-
-  useEffect(() => {
-    fetchProducts();
-  }, []);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      if (products.length === 0) {
-        setShowNoProductMessage(true);
-      }
-    }, 1500);
-
-    return () => clearTimeout(timer);
-  }, [products]);
 
   const handleDelete = async (id: string) => {
     try {
@@ -196,9 +184,18 @@ export default function Products({
     { value: "discontinue", label: modallocalization["discontinue"] },
   ];
 
-  const filteredProducts = products.filter((product) =>
-    product.productName.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  useEffect(() => {
+    if (searchQuery.trim() === "") {
+      setFilteredProducts(products);
+      setNoResults(false);
+    } else {
+      const filtered = products.filter((product) =>
+        product.productName.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      setFilteredProducts(filtered);
+      setNoResults(filtered.length === 0);
+    }
+  }, [searchQuery, products]);
 
   return (
     <div className="px-16 pt-4">
@@ -297,10 +294,10 @@ export default function Products({
                     </td>
                   </tr>
                 ))
-              ) : showNoProductMessage ? (
+              ) : noResults ? (
                 <tr>
-                  <td className="absolute top-54 font-semibold text-xl left-[32%] py-4">
-                    <p>محصولی یافت نشد!</p>
+                  <td colSpan={7} className="py-3 text-center text-red-500">
+                    <p>{productslocalization["noProductsFound"]}</p>
                   </td>
                 </tr>
               ) : null}
