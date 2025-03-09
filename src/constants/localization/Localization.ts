@@ -63,6 +63,21 @@ export const productslocalization = {
   delete: "حذف",
   edit: "ویرایش",
   noProductsFound: ".محصولی یافت نشد",
+  errorInGettingData: "خطا در دریافت محصولات",
+};
+
+export const swallLocalization = {
+  sure: "آیا مطمئن هستید؟",
+  warninigText: "!این محصول برای همیشه حذف خواهد شد",
+  okDelete: "بله، حذف شود!",
+  cancle: "لغو",
+  delete: "!حذف شد",
+  deletedSuccessfully: ".محصول با موفقیت حذف شد",
+  ok: "باشه",
+  errorHappened: "مشکلی پیش آمد. دوباره امتحان کنید",
+  error: "!خطا",
+  editedSuccessfully: "!ویرایش موفقیت آمیز بود",
+  errorInEditing: "!خطا در ویرایش محصول",
 };
 
 export const modallocalization = {

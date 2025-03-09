@@ -7,6 +7,7 @@ import {
   asidebarlocalization,
   modallocalization,
   productslocalization,
+  swallLocalization,
 } from "../../../constants/localization/Localization";
 import { Iproduct } from "../../../interfaces/interfaces";
 import { deleteProduct } from "../../Sevices/Products/deleteProducts";
@@ -36,7 +37,7 @@ export default function Products({
       );
       setProducts(response.data);
     } catch (error) {
-      console.error("خطا در دریافت محصولات:", error);
+      console.error(productslocalization.errorInGettingData, error);
     }
   };
   useEffect(() => {
@@ -52,14 +53,14 @@ export default function Products({
   const handleDelete = async (id: string) => {
     try {
       const result = await Swal.fire({
-        title: "آیا مطمئن هستید؟",
-        text: "این محصول برای همیشه حذف خواهد شد!",
+        title: swallLocalization.sure,
+        text: swallLocalization.warninigText,
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#d33",
         cancelButtonColor: "#3085d6",
-        confirmButtonText: "بله، حذف شود!",
-        cancelButtonText: "لغو",
+        confirmButtonText: swallLocalization.okDelete,
+        cancelButtonText: swallLocalization.cancle,
       });
 
       if (result.isConfirmed) {
@@ -67,18 +68,22 @@ export default function Products({
         if (success) {
           setProducts((prev) => prev.filter((p) => p.id !== id));
           Swal.fire({
-            title: "حذف شد!",
-            text: "محصول با موفقیت حذف شد.",
+            title: swallLocalization.delete,
+            text: swallLocalization.deletedSuccessfully,
             icon: "success",
-            confirmButtonText: "باشه",
+            confirmButtonText: swallLocalization.ok,
           });
         } else {
-          throw new Error("مشکلی پیش آمد. دوباره امتحان کنید.");
+          throw new Error(swallLocalization.errorHappened);
         }
       }
     } catch (error) {
-      console.error("خطا در حذف محصول:", error);
-      Swal.fire("خطا!", "مشکلی پیش آمد. دوباره امتحان کنید.", "error");
+      console.error(swallLocalization.error, error);
+      Swal.fire(
+        swallLocalization.error,
+        swallLocalization.errorHappened,
+        "error"
+      );
     }
   };
 
@@ -119,18 +124,18 @@ export default function Products({
         setIsEditModalOpen(false);
         setSelectedProduct(null);
         Swal.fire({
-          title: "!ویرایش موفقیت آمیز بود",
+          title: swallLocalization.editedSuccessfully,
           icon: "success",
-          confirmButtonText: "باشه",
+          confirmButtonText: swallLocalization.ok,
         });
       } else {
-        throw new Error("!خطا در ویرایش محصول");
+        throw new Error(swallLocalization.errorInEditing);
       }
     } catch (error: any) {
-      console.error(":خطا در ویرایش محصول", error);
+      console.error(swallLocalization.errorInEditing, error);
       Swal.fire(
-        "خطا در ویرایش!",
-        error.message || "دوباره امتحان کنید.",
+        swallLocalization.errorInEditing,
+        error.message || swallLocalization.errorHappened,
         "error"
       );
     } finally {

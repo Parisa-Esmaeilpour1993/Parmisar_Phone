@@ -51,7 +51,7 @@ export default function Users({ searchQuery }: { searchQuery: string }) {
           <span className="text-lg font-semibold">
             {UserLocalization.loading}
           </span>
-          <div className="ml-2 border-t-4 border-blue-500 w-8 h-8 border-dotted rounded-full animate-spin"></div>
+          <div className="ml-2 border-t-4 border-primary-200 w-8 h-8 border-dotted rounded-full animate-spin"></div>
         </div>
       ) : filteredUser.length > 0 ? (
         <div className="overflow-y-auto max-h-[24rem] mt-4 flex flex-row-reverse">
