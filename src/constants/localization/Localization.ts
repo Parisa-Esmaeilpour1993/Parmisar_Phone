@@ -21,6 +21,7 @@ export const asidebarlocalization = {
   setting: "تنظیمات",
   help: "پشتیبانی",
   logOut: "خروج از حساب کاربری",
+  users: "کاربران",
 };
 
 export const Analysislocalization = {
@@ -111,4 +112,11 @@ export const OrderModalLocalization = {
   count: "تعداد",
   tottalPrice: "قیمت کل",
   close: "خروج",
+};
+
+export const UserLocalization = {
+  usersList: "لیست کاربران",
+  noDataToShow: ".اطلاعاتی برای نمایش وجود ندارد",
+  loading: "...درحال بارگیری کاربران",
+  noUserToShow: ".کاربر موردنظر یافت نشد",
 };

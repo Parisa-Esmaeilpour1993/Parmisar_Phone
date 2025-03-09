@@ -1,0 +1,97 @@
+import { useEffect, useState } from "react";
+import {
+  asidebarlocalization,
+  UserLocalization,
+} from "../../constants/localization/Localization";
+import axios from "axios";
+import { ORDER_BASE_URL } from "../Sevices/OrderURL/OrderURL";
+import { UserProps } from "../../interfaces/interfaces";
+
+export default function Users({ searchQuery }: { searchQuery: string }) {
+  const [isLoading, setIsLoading] = useState(false);
+  const [user, setUser] = useState<UserProps[]>([]);
+  const [filteredUser, setFilteredUser] = useState<UserProps[]>([]);
+  const [noResult, setNoResults] = useState(false);
+  async function getUsers() {
+    setIsLoading(true);
+    try {
+      const response = await axios.get(`${ORDER_BASE_URL}/Orders`);
+      setUser(response.data);
+      setFilteredUser(response.data);
+      setIsLoading(false);
+    } catch (error) {
+      console.log(error);
+      setIsLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    getUsers();
+  }, []);
+
+  useEffect(() => {
+    if (searchQuery === "") {
+      setFilteredUser(user);
+      setNoResults(false);
+    } else {
+      const filtered = user.filter((user) =>
+        user.userName.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      setFilteredUser(filtered);
+      setNoResults(filtered.length === 0);
+    }
+  }, [searchQuery, user]);
+
+  return (
+    <div className="px-16 mt-12 text-right">
+      <p className="font-semibold text-xl">{asidebarlocalization.users}</p>
+
+      {isLoading ? (
+        <div className="flex justify-center items-center mt-4">
+          <span className="text-lg font-semibold">
+            {UserLocalization.loading}
+          </span>
+          <div className="ml-2 border-t-4 border-blue-500 w-8 h-8 border-dotted rounded-full animate-spin"></div>
+        </div>
+      ) : filteredUser.length > 0 ? (
+        <div className="overflow-y-auto max-h-[24rem] mt-4 flex flex-row-reverse">
+          <table className="min-w-fit bg-white text-center shadow-md rounded-lg border-collapse">
+            <thead className="bg-gray-300">
+              <tr>
+                <th
+                  colSpan={2}
+                  className="py-3  text-sm font-semibold text-center"
+                >
+                  {UserLocalization.usersList}
+                </th>
+                <th className="py-3 px-4 text-sm font-semibold text-center"></th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredUser.length > 0 ? (
+                filteredUser.map((user) => (
+                  <tr key={user.id} className="border-b hover:bg-gray-100">
+                    <td className="py-3 px-4 text-center">{user.userName}</td>
+                    <td className="py-3 px-4 text-center">{user.id}</td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan={2} className="py-4 text-center text-gray-500">
+                    {UserLocalization.noDataToShow}
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+      ) : noResult ? (
+        <tr>
+          <td colSpan={2} className="py-10 pl-96 text-red-500">
+            {UserLocalization.noUserToShow}
+          </td>
+        </tr>
+      ) : null}
+    </div>
+  );
+}

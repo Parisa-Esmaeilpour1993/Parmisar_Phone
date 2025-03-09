@@ -4,7 +4,7 @@ export interface Iproduct {
   productStock: string;
   productType: string;
   productStatus: string;
-  id ?: string
+  id?: string;
 }
 
 export interface productInit {
@@ -22,5 +22,11 @@ export interface Iorders {
   totalPrice: number;
   status: boolean;
   id: number;
-  orders: []
+  orders: [];
+}
+
+export interface UserProps {
+  userName: string;
+  id: number;
+  user: [];
 }

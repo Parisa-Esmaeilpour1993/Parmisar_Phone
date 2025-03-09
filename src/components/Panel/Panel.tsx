@@ -8,6 +8,7 @@ import Home from "./Home/Home";
 import { useContext } from "react";
 import Order from "./Order/Order";
 import AsideContext from "../context/context";
+import Users from "../users/Users";
 
 export default function Panel() {
   const [products, setProducts] = useState<Iproduct[]>([]);
@@ -30,6 +31,8 @@ export default function Panel() {
         return <Order searchQuery={searchQuery} />;
       case "admin":
         return <Profile />;
+      case "users":
+        return <Users searchQuery={searchQuery} />;
     }
   }
 

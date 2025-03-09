@@ -7,6 +7,7 @@ import { asidebarlocalization } from "../../../constants/localization/Localizati
 import { useNavigate } from "react-router";
 import { useContext } from "react";
 import AsideContext from "../../context/context";
+import { FaUsers } from "react-icons/fa";
 
 export default function Asidebar() {
   const navigate = useNavigate();
@@ -56,6 +57,15 @@ export default function Asidebar() {
         >
           <p>{asidebarlocalization["orders"]}</p>
           <BiSolidMessageDetail />
+        </button>
+        <button
+          className={`flex items-center justify-end gap-2 px-2 py-1 rounded-lg ${
+            activeComponent === "users" ? "bg-primary-200 text-white" : ""
+          }`}
+          onClick={() => setActiveComponent("users")}
+        >
+          <p>{asidebarlocalization["users"]}</p>
+          <FaUsers />
         </button>
       </div>
       <button
