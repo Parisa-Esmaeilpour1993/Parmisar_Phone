@@ -89,13 +89,14 @@ export const modallocalization = {
   discontinue: "متوقف شده",
   saveChanges: "ذخیره تغییرات",
   editing: "در حال ویرایش...",
-  error: "امکان اضافه کردن محصول با موجودی صفر وجود ندارد",
+  error: "امکان اضافه کردن محصول با موجودی صفر یا ناموجود وجود ندارد",
   outOfStockError: ".محصول ناموجود شد",
   addedSuccessfully: "افزودن محصول موفقیت‌آمیز بود",
   errorInData: "خطا در ارسال اطلاعات",
   unSuccessfullyAdded: "افزودن محصول جدید موفقیت‌آمیز نبود",
   errorInRequest: ":خطا در ارسال درخواست",
   allFieldRequired: ".تمامی فیلدها باید پر شوند",
+  notReady: "!این محصول در انبار ناموجود شد",
 };
 
 export const profilelocalization = {
