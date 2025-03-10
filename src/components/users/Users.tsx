@@ -59,21 +59,40 @@ export default function Users({ searchQuery }: { searchQuery: string }) {
             <table className="min-w-fit bg-white text-center shadow-md rounded-lg border-collapse">
               <thead className="bg-gray-300">
                 <tr>
-                  <th
-                    colSpan={2}
-                    className="py-3  text-sm font-semibold text-center"
-                  >
-                    {UserLocalization.usersList}
+                  <th className="py-3 px-4 text-sm font-semibold text-center">
+                    {UserLocalization.phoneNumber}
                   </th>
-                  <th className="py-3 px-4 text-sm font-semibold text-center"></th>
+                  <th className="py-3 px-4 text-sm font-semibold text-center">
+                    {UserLocalization.firstName}
+                  </th>
+                  <th className="py-3 px-4 text-sm font-semibold text-center">
+                    {UserLocalization.lastName}
+                  </th>
+                  <th className="py-3 px-4 text-sm font-semibold text-center">
+                    {UserLocalization.userName}
+                  </th>
+                  <th className="py-3 px-4 text-sm font-semibold text-center">
+                    {UserLocalization.id}
+                  </th>
                 </tr>
               </thead>
               <tbody>
                 {filteredUser.length > 0 ? (
                   filteredUser.map((user) => (
                     <tr key={user.id} className="border-b hover:bg-gray-100">
-                      <td className="py-3 px-4 text-center">{user.userName}</td>
-                      <td className="py-3 px-4 text-center">{user.id}</td>
+                      <td className="py-3 px-8 text-center">
+                        {user.phoneNumber}
+                      </td>
+                      <td className="py-3 px-4 text-center">
+                        {user.firstName}
+                      </td>
+                      <td className="py-3 px-4 text-center">{user.lastName}</td>
+                      <td className="py-3 px-4 text-center text-red-400 font-semibold">
+                        {user.userName}
+                      </td>
+                      <td className="py-3 px-4 text-center font-semibold">
+                        {user.id}
+                      </td>
                     </tr>
                   ))
                 ) : (

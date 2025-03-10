@@ -138,6 +138,11 @@ export const OrderModalLocalization = {
 
 export const UserLocalization = {
   usersList: "لیست کاربران",
+  firstName: "نام کاربر",
+  lastName: "نام خانوادگی کاربر",
+  userName: "نام کاربری",
+  phoneNumber: "شماره تماس",
+  id: "شناسه کاربری",
   noDataToShow: ".اطلاعاتی برای نمایش وجود ندارد",
   loading: "...درحال بارگیری کاربران",
   noUserToShow: ".کاربر موردنظر یافت نشد",
