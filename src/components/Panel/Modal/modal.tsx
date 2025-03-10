@@ -27,17 +27,8 @@ import {
   IpostProducts,
   postProducts,
 } from "../../Sevices/Products/postProducts";
-
-const productTypes = [
-  "apple",
-  "xiaomi",
-  "samsung",
-  "huawei",
-  "nokia",
-  "microsoft",
-  "nothingPhone",
-  "google",
-];
+import { initialFormData } from "../../../utils/initialFormData";
+import { productTypes } from "../../../utils/productType";
 
 const productStatuses = [
   { value: "inStock", label: modallocalization["inStock"] },
@@ -49,19 +40,12 @@ const productStatuses = [
 export function InitialFocus({
   setProducts,
   fetchProducts,
+  products,
 }: {
   setProducts: (products: Iproduct[]) => void;
-
   fetchProducts: () => void;
+  products: Iproduct[];
 }) {
-  const initialFormData: Iproduct = {
-    productName: "",
-    productPrice: "",
-    productStock: "",
-    productType: "",
-    productStatus: "",
-  };
-
   const [formData, setFormData] = useState<Iproduct>(initialFormData);
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -76,7 +60,9 @@ export function InitialFocus({
     setLoading(true);
 
     if (formData.productStock === "0") {
-      toast.error(modallocalization.error);
+      toast.error(modallocalization.error, {
+        style: { direction: "rtl", textAlign: "right" },
+      });
       setLoading(false);
       return;
     }
@@ -84,15 +70,21 @@ export function InitialFocus({
     try {
       const response = await postProducts(formData);
       if (response?.status === 201) {
-        toast.success(modallocalization.addedSuccessfully);
+        toast.success(modallocalization.addedSuccessfully, {
+          style: { direction: "rtl", textAlign: "right" },
+        });
         onClose();
         setFormData(initialFormData);
         fetchProducts();
       } else {
-        toast.error(modallocalization.errorInData);
+        toast.error(modallocalization.errorInData, {
+          style: { direction: "rtl", textAlign: "right" },
+        });
       }
     } catch (error) {
-      toast.error(modallocalization.unSuccessfullyAdded);
+      toast.error(modallocalization.unSuccessfullyAdded, {
+        style: { direction: "rtl", textAlign: "right" },
+      });
       console.error(modallocalization.errorInRequest, error);
     } finally {
       setLoading(false);
@@ -101,6 +93,20 @@ export function InitialFocus({
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    const isDuplicate = products.some(
+      (product) =>
+        product.productName.trim() === formData.productName.trim() &&
+        product.productType === formData.productType
+    );
+
+    if (isDuplicate) {
+      toast.error(modallocalization.reputation, {
+        style: { direction: "rtl", textAlign: "right" },
+      });
+      return;
+    }
+
     if (
       !formData.productName ||
       !formData.productPrice ||
@@ -108,7 +114,9 @@ export function InitialFocus({
       !formData.productType ||
       !formData.productStatus
     ) {
-      toast.error(modallocalization.allFieldRequired);
+      toast.error(modallocalization.allFieldRequired, {
+        style: { direction: "rtl", textAlign: "right" },
+      });
       return;
     }
     handleAddProducts(formData);

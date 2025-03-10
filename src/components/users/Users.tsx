@@ -54,36 +54,38 @@ export default function Users({ searchQuery }: { searchQuery: string }) {
           <div className="ml-2 border-t-4 border-primary-200 w-8 h-8 border-dotted rounded-full animate-spin"></div>
         </div>
       ) : filteredUser.length > 0 ? (
-        <div className="overflow-y-auto max-h-[24rem] mt-4 flex flex-row-reverse">
-          <table className="min-w-fit bg-white text-center shadow-md rounded-lg border-collapse">
-            <thead className="bg-gray-300">
-              <tr>
-                <th
-                  colSpan={2}
-                  className="py-3  text-sm font-semibold text-center"
-                >
-                  {UserLocalization.usersList}
-                </th>
-                <th className="py-3 px-4 text-sm font-semibold text-center"></th>
-              </tr>
-            </thead>
-            <tbody>
-              {filteredUser.length > 0 ? (
-                filteredUser.map((user) => (
-                  <tr key={user.id} className="border-b hover:bg-gray-100">
-                    <td className="py-3 px-4 text-center">{user.userName}</td>
-                    <td className="py-3 px-4 text-center">{user.id}</td>
-                  </tr>
-                ))
-              ) : (
+        <div className="flex justify-center items-center max-h-fit">
+          <div className="overflow-y-auto max-h-[24rem] mt-4 flex flex-row-reverse">
+            <table className="min-w-fit bg-white text-center shadow-md rounded-lg border-collapse">
+              <thead className="bg-gray-300">
                 <tr>
-                  <td colSpan={2} className="py-4 text-center text-gray-500">
-                    {UserLocalization.noDataToShow}
-                  </td>
+                  <th
+                    colSpan={2}
+                    className="py-3  text-sm font-semibold text-center"
+                  >
+                    {UserLocalization.usersList}
+                  </th>
+                  <th className="py-3 px-4 text-sm font-semibold text-center"></th>
                 </tr>
-              )}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {filteredUser.length > 0 ? (
+                  filteredUser.map((user) => (
+                    <tr key={user.id} className="border-b hover:bg-gray-100">
+                      <td className="py-3 px-4 text-center">{user.userName}</td>
+                      <td className="py-3 px-4 text-center">{user.id}</td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan={2} className="py-4 text-center text-gray-500">
+                      {UserLocalization.noDataToShow}
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
         </div>
       ) : noResult ? (
         <tr>

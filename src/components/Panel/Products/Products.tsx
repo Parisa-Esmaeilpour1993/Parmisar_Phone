@@ -102,12 +102,16 @@ export default function Products({
     if (!selectedProduct || !selectedProduct.id) return;
 
     if (selectedProduct.productStatus == "outOfStock") {
-      toast.info(modallocalization.error);
+      toast.info(modallocalization.error, {
+        style: { direction: "rtl", textAlign: "right" },
+      });
       return;
     }
 
     if (selectedProduct.productStock === "0") {
-      toast.warning(modallocalization.notReady);
+      toast.warning(modallocalization.notReady, {
+        style: { direction: "rtl", textAlign: "right" },
+      });
     }
 
     try {
@@ -163,7 +167,11 @@ export default function Products({
 
   return (
     <div className="px-16 pt-4">
-      <InitialFocus setProducts={setProducts} fetchProducts={fetchProducts} />
+      <InitialFocus
+        setProducts={setProducts}
+        fetchProducts={fetchProducts}
+        products={products}
+      />
       <div className="flex justify-end items-center py-5 gap-5 mt-3">
         <p className="font-semibold text-2xl">
           {asidebarlocalization["products"]}

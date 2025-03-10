@@ -68,16 +68,16 @@ export const productslocalization = {
 
 export const swallLocalization = {
   sure: "آیا مطمئن هستید؟",
-  warninigText: "!این محصول برای همیشه حذف خواهد شد",
-  okDelete: "بله، حذف شود!",
+  warninigText: "این محصول برای همیشه حذف خواهد شد",
+  okDelete: "!بله، حذف شود",
   cancle: "لغو",
-  delete: "!حذف شد",
+  delete: "حذف شد",
   deletedSuccessfully: ".محصول با موفقیت حذف شد",
   ok: "باشه",
   errorHappened: "مشکلی پیش آمد. دوباره امتحان کنید",
-  error: "!خطا",
-  editedSuccessfully: "!ویرایش موفقیت آمیز بود",
-  errorInEditing: "!خطا در ویرایش محصول",
+  error: "خطا",
+  editedSuccessfully: "ویرایش موفقیت آمیز بود",
+  errorInEditing: "خطا در ویرایش محصول",
 };
 
 export const modallocalization = {
@@ -90,13 +90,14 @@ export const modallocalization = {
   saveChanges: "ذخیره تغییرات",
   editing: "در حال ویرایش...",
   error: "امکان اضافه کردن محصول با موجودی صفر یا ناموجود وجود ندارد",
-  outOfStockError: ".محصول ناموجود شد",
+  outOfStockError: "محصول ناموجود شد",
   addedSuccessfully: "افزودن محصول موفقیت‌آمیز بود",
   errorInData: "خطا در ارسال اطلاعات",
   unSuccessfullyAdded: "افزودن محصول جدید موفقیت‌آمیز نبود",
   errorInRequest: ":خطا در ارسال درخواست",
-  allFieldRequired: ".تمامی فیلدها باید پر شوند",
-  notReady: "!این محصول در انبار ناموجود شد",
+  allFieldRequired: "تمامی فیلدها باید پر شوند.",
+  notReady: "این محصول در انبار ناموجود شد!",
+  reputation: "محصولی با همین نام و نوع از قبل موجود است!",
 };
 
 export const profilelocalization = {
