@@ -30,7 +30,9 @@ export default function EditProductModal({
   if (!selectedProduct) return null;
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
-      <div className="font-vazir p-6 top-20 bg-primary-200 w-[25rem] h-[32rem] rounded-lg shadow-2xl z-50 right-1/3 absolute">
+      <div className="fixed inset-0 bg-primary-100 bg-opacity-10 backdrop-blur-sm z-20"></div>
+
+      <div className="p-6 top-20 bg-primary-200 w-[25rem] h-[32rem] rounded-lg shadow-2xl z-50 right-1/3 absolute">
         <Input
           className="p-2 rounded-md mb-3"
           name="productName"

@@ -13,38 +13,28 @@ import {
   Select,
   useDisclosure,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
-import { FaPlus } from "react-icons/fa";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import React, { useState } from "react";
+import { FaPlus } from "react-icons/fa";
+
+import { IpostProducts, postProducts } from "../Sevices/Products/postProducts";
+import { Iproduct } from "../../interfaces/interfaces";
+import Loading from "../Loading/Loading";
 import {
   modallocalization,
   productslocalization,
-} from "../../../constants/localization/Localization";
-import { Iproduct } from "../../../interfaces/interfaces";
-import Loading from "../../Loading/Loading";
-import {
-  IpostProducts,
-  postProducts,
-} from "../../Sevices/Products/postProducts";
-import { initialFormData } from "../../../utils/initialFormData";
-import { productTypes } from "../../../utils/productType";
+} from "../../constants/localization/Localization";
+import { productTypes } from "../../utils/productType";
+import { productStatuses } from "../../utils/productStatus";
+import { initialFormData } from "../../utils/initialFormData";
 
-const productStatuses = [
-  { value: "inStock", label: modallocalization["inStock"] },
-  // { value: "outOfStock", label: modallocalization["outOfStock"] },
-  { value: "comingSoon", label: modallocalization["comingSoon"] },
-  { value: "discontinue", label: modallocalization["discontinue"] },
-];
-
-export function InitialFocus({
+export default function InitialFocus({
   setProducts,
   fetchProducts,
-  products,
 }: {
   setProducts: (products: Iproduct[]) => void;
   fetchProducts: () => void;
-  products: Iproduct[];
 }) {
   const [formData, setFormData] = useState<Iproduct>(initialFormData);
   const [loading, setLoading] = useState<boolean>(false);
@@ -58,15 +48,6 @@ export function InitialFocus({
 
   const handleAddProducts = async (formData: IpostProducts) => {
     setLoading(true);
-
-    if (formData.productStock === "0") {
-      toast.error(modallocalization.error, {
-        style: { direction: "rtl", textAlign: "right" },
-      });
-      setLoading(false);
-      return;
-    }
-
     try {
       const response = await postProducts(formData);
       if (response?.status === 201) {
@@ -93,20 +74,6 @@ export function InitialFocus({
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    const isDuplicate = products.some(
-      (product) =>
-        product.productName.trim() === formData.productName.trim() &&
-        product.productType === formData.productType
-    );
-
-    if (isDuplicate) {
-      toast.error(modallocalization.reputation, {
-        style: { direction: "rtl", textAlign: "right" },
-      });
-      return;
-    }
-
     if (
       !formData.productName ||
       !formData.productPrice ||
@@ -132,13 +99,9 @@ export function InitialFocus({
   const finalRef = React.useRef(null);
 
   return (
-    <div className="absolute top-20 left-[4rem] mt-6 font-vazir">
+    <div className="absolute top-20 right-[4.3rem] ">
       <ToastContainer />
-      <Button
-        onClick={onOpen}
-        colorScheme="blue"
-        className="flex gap-2 font-vazir items-center justify-center w-56"
-      >
+      <Button onClick={onOpen} colorScheme="blue" size="lg">
         <FaPlus />
         {productslocalization["addNewProduct"]}
       </Button>
@@ -148,16 +111,14 @@ export function InitialFocus({
         finalFocusRef={finalRef}
         isOpen={isOpen}
         onClose={onClose}
-        isCentered
       >
         <ModalOverlay />
         <ModalContent>
-          <form className="font-vazir" onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit}>
             <ModalHeader>{productslocalization["addNewProduct"]}</ModalHeader>
-            <ModalCloseButton className="mt-2" />
-
+            <ModalCloseButton />
             <ModalBody pb={6}>
-              <FormControl className="flex font-vazir flex-col items-end">
+              <FormControl>
                 <FormLabel>{productslocalization["productName"]}</FormLabel>
                 <Input
                   type="text"
@@ -165,11 +126,10 @@ export function InitialFocus({
                   placeholder={productslocalization["productName"]}
                   value={formData.productName}
                   onChange={handleChange}
-                  dir="rtl"
                 />
               </FormControl>
 
-              <FormControl mt={4} className="flex flex-col items-end">
+              <FormControl mt={4}>
                 <FormLabel>{productslocalization["price"]}</FormLabel>
                 <Input
                   placeholder={productslocalization["price"]}
@@ -177,11 +137,10 @@ export function InitialFocus({
                   name="productPrice"
                   value={formData.productPrice}
                   onChange={handleChange}
-                  dir="rtl"
                 />
               </FormControl>
 
-              <FormControl mt={4} className="flex flex-col items-end">
+              <FormControl mt={4}>
                 <FormLabel>{productslocalization["stock"]}</FormLabel>
                 <Input
                   placeholder={productslocalization["stock"]}
@@ -189,18 +148,16 @@ export function InitialFocus({
                   name="productStock"
                   value={formData.productStock}
                   onChange={handleChange}
-                  dir="rtl"
                 />
               </FormControl>
 
-              <FormControl mt={4} className="flex flex-col items-end">
+              <FormControl mt={4}>
                 <FormLabel>{productslocalization["type"]}</FormLabel>
                 <Select
                   placeholder={productslocalization["type"]}
                   name="productType"
                   value={formData.productType}
                   onChange={handleChange}
-                  textAlign="right"
                 >
                   {productTypes.map((type) => (
                     <option key={type} value={type}>
@@ -210,13 +167,12 @@ export function InitialFocus({
                 </Select>
               </FormControl>
 
-              <FormControl mt={4} className="flex flex-col items-end">
+              <FormControl mt={4}>
                 <FormLabel>{productslocalization["status"]}</FormLabel>
                 <Select
                   name="productStatus"
                   value={formData.productStatus}
                   onChange={handleChange}
-                  textAlign="right"
                 >
                   <option hidden selected>
                     {productslocalization["status"]}

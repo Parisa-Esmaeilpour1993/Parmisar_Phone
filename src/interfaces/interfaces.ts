@@ -27,6 +27,9 @@ export interface Iorders {
 
 export interface UserProps {
   userName: string;
+  firstName: string;
+  lastName: string;
+  phoneNumber: string;
   id: number;
   user: [];
 }

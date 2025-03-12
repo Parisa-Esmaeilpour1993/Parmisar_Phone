@@ -35,10 +35,10 @@ export default function ProductTable({
               {productslocalization["stock"]}
             </th>
             <th className="py-3 px-4 text-sm text-center font-semibold">
-              {productslocalization["type"]}
+              {productslocalization["productName"]}
             </th>
             <th className="py-3 px-4 text-sm text-center font-semibold">
-              {productslocalization["productName"]}
+              {productslocalization["type"]}
             </th>
             <th className="py-3 px-4 text-sm text-center font-semibold">
               {productslocalization["productID"]}
@@ -85,7 +85,6 @@ export default function ProductTable({
                 </td>
                 <td className="py-4 text-center">{item.productPrice}</td>
                 <td className="py-4 text-center">{item.productStock}</td>
-                <td className="py-4 text-center">{item.productType}</td>
                 <td
                   className={`py-4 text-center ${
                     item.productStatus === "outOfStock" ? "line-through" : ""
@@ -93,6 +92,7 @@ export default function ProductTable({
                 >
                   {item.productName}
                 </td>
+                <td className="py-4 text-center">{item.productType}</td>
                 <td
                   className={`py-4 text-center ${
                     item.productStatus === "outOfStock" ? "line-through" : ""
