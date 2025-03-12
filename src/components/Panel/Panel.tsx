@@ -9,6 +9,7 @@ import { useContext } from "react";
 import Order from "./Order/Order";
 import AsideContext from "../context/context";
 import Users from "../users/Users";
+import Stock from "./Stock/Stock";
 
 export default function Panel() {
   const [products, setProducts] = useState<Iproduct[]>([]);
@@ -23,16 +24,18 @@ export default function Panel() {
 
   function renderComponents() {
     switch (activeComponent) {
-      case "home":
+      case 'home':
         return <Home />;
-      case "products":
+      case 'products':
         return <Products formData={products} searchQuery={searchQuery} />;
-      case "order":
+      case 'order':
         return <Order searchQuery={searchQuery} />;
-      case "admin":
+      case 'admin':
         return <Profile />;
-      case "users":
+      case 'users':
         return <Users searchQuery={searchQuery} />;
+      case 'stock':
+        return <Stock searchQuery={searchQuery} />;
     }
   }
 

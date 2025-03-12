@@ -61,7 +61,7 @@ export default function Table({ searchQuery }: { searchQuery: string }) {
   }, [searchQuery, orders]);
 
   return (
-    <div className="overflow-y-auto max-h-[70vh] shadow-xl">
+    <div className="overflow-y-auto max-h-[70vh] shadow-xl font-vazir">
       <table className="w-full bg-white border-collapse text-center relative ">
         <thead className="bg-gray-300">
           <tr>
@@ -101,7 +101,7 @@ export default function Table({ searchQuery }: { searchQuery: string }) {
                       : Orderlocalization.sending}
                   </div>
                 </td>
-                <td className="py-3 px-2">{item.totalPrice}</td>
+                <td className="py-3 px-2 font-number">{item.totalPrice}</td>
                 <td className="py-3 px-2">{item.userName}</td>
               </tr>
             ))

@@ -162,7 +162,7 @@ export default function Products({
   }, [searchQuery, products]);
 
   return (
-    <div className="px-16 pt-4">
+    <div className="px-16 pt-4 font-vazir">
       <InitialFocus setProducts={setProducts} fetchProducts={fetchProducts} />
       <div className="flex justify-end items-center py-5 gap-5 mt-3">
         <p className="font-semibold text-2xl">

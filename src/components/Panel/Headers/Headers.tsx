@@ -33,7 +33,7 @@ export default function Headers({
   };
 
   return (
-    <div className="mt-5 flex items-center justify-between px-16">
+    <div className="mt-5 flex items-center justify-between px-16 font-vazir">
       <div
         className="flex gap-7 items-center cursor-pointer"
         onClick={() => setActiveComponent("admin")}

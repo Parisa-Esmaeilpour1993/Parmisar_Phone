@@ -18,7 +18,7 @@ export default function ProductTable({
   noResults,
 }: ProductTableProps) {
   return (
-    <div>
+    <div className="font-vazir">
       <table className="w-full bg-white text-left border-collapse table-container shadow-md rounded-lg max-w-[62rem]">
         <thead className="bg-gray-400 sticky top-0 z-10">
           <tr>
@@ -28,7 +28,7 @@ export default function ProductTable({
             <th className="py-3 px-4 text-sm text-center font-semibold">
               {productslocalization["status"]}
             </th>
-            <th className="py-3 px-4 text-sm text-center font-semibold">
+            <th className="py-3 px-4 text-sm text-center">
               {productslocalization["price"]}
             </th>
             <th className="py-3 px-4 text-sm text-center font-semibold">
@@ -50,7 +50,7 @@ export default function ProductTable({
             filteredProducts.map((item) => (
               <tr
                 key={item.id}
-                className={`border-b ${
+                className={`border-b font-number ${
                   item.productStatus === "comingSoon"
                     ? "bg-yellow-100"
                     : item.productStatus === "discontinue"
@@ -62,13 +62,13 @@ export default function ProductTable({
               >
                 <td className="py-4 flex gap-2 items-center justify-center">
                   <button
-                    className="bg-red-500 text-white rounded-lg py-1 px-2 hover:bg-red-700"
+                    className="bg-red-500 text-white rounded-lg py-1 font-vazir px-2 hover:bg-red-700"
                     onClick={() => item.id && handleDelete(item.id)}
                   >
                     {productslocalization["delete"]}
                   </button>
                   <button
-                    className="bg-blue-500 text-white rounded-lg py-1 px-2 hover:bg-blue-700"
+                    className="bg-blue-500 text-white rounded-lg font-vazir py-1 px-2 hover:bg-blue-700"
                     onClick={() => handleEditClick(item)}
                   >
                     {productslocalization["edit"]}

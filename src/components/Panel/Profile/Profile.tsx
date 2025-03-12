@@ -5,11 +5,11 @@ import prof from "./../../../assets/images/information.png"
 
 export default function Profile() {
   return (
-    <div className="flex flex-col gap-6 pt-3 pr-16 pl-16">
-      <h2 className="text-xl font-semibold">
+    <div className="flex flex-col gap-6 pt-3 pr-16 pl-16 font-vazir">
+      <h2 className="text-xl font-vazirbold">
         {profilelocalization['profile']}
       </h2>
-      <div className="flex gap-10 items-center ml-1">
+      <div className="flex gap-10 items-center ml-1 font-vazir">
         <img
           className="w-16 h-16 rounded-full"
           src={prof}
@@ -70,17 +70,17 @@ export default function Profile() {
             />
           </div>
         </div>
-        <div className="flex flex-col gap-2">
-          <label htmlFor="bio">{profilelocalization['bio']}:</label>
+        <div className="flex flex-col gap-2 ">
+          <label className="text-end font-vazir font-medium" htmlFor="bio">:{profilelocalization['bio']}</label>
           <textarea
-            className="bg-transparent p-2 h-52 w-[72.2rem] rounded-md border border-gray-400 "
+            className="bg-transparent p-2 h-52 w-[72.2rem] rounded-md border text-end border-gray-400 "
             placeholder="..."
             name="bio"
             id="bio"
           ></textarea>
         </div>
         <Button
-          className="bg-primary-200 w-40 h-9 rounded-lg text-white active:scale-95"
+          className="bg-primary-200 w-40 h-9 font-vazir rounded-lg text-white active:scale-95"
           children={profilelocalization['updateProfile']}
         />
       </form>

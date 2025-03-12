@@ -43,7 +43,7 @@ export default function Users({ searchQuery }: { searchQuery: string }) {
   }, [searchQuery, user]);
 
   return (
-    <div className="px-16 mt-12 text-right">
+    <div className="px-16 mt-12 text-right font-vazir">
       <p className="font-semibold text-xl">{asidebarlocalization.users}</p>
 
       {isLoading ? (
@@ -70,7 +70,7 @@ export default function Users({ searchQuery }: { searchQuery: string }) {
             <tbody>
               {filteredUser.length > 0 ? (
                 filteredUser.map((user) => (
-                  <tr key={user.id} className="border-b hover:bg-gray-100">
+                  <tr key={user.id} className="border-b font-number hover:bg-gray-100">
                     <td className="py-3 px-4 text-center">{user.userName}</td>
                     <td className="py-3 px-4 text-center">{user.id}</td>
                   </tr>

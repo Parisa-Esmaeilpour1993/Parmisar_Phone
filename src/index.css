@@ -2,6 +2,26 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: vazir;
+  src: url(./assets/fonts/Vazir.woff2)
+}
+
+@font-face {
+  font-family: vazir-bold;
+  src: url(./assets/fonts/Vazir-Bold.woff2);
+}
+
+@font-face {
+  font-family: vazir-thin;
+  src: url(./assets/fonts/Vazir-Thin.woff2);
+}
+
+@font-face {
+  font-family: number;
+  src: url(./assets/fonts/Dirooz-FD.woff2);
+}
+
 .information-bg {
   background-image: url(./assets/images/information.png);
   background-size: cover;
@@ -11,3 +31,4 @@
   scrollbar-width: thin;
   scrollbar-color: #888 #f1f1f1;
 }
+

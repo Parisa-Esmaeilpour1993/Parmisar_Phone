@@ -24,7 +24,7 @@ export function OpenOrderModal({ order, isOpen, onClose }: ModalProps) {
       <ModalContent dir="rtl">
         <ModalHeader>{OrderModalLocalization.title}</ModalHeader>
         <ModalBody>
-          <div className="flex gap-5">
+          <div className="flex gap-5 font-vazir">
             <h1>{OrderModalLocalization.userName} :</h1>
             <h2>{order.userName}</h2>
           </div>

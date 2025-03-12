@@ -124,12 +124,12 @@ export function InitialFocus({
   const finalRef = React.useRef(null);
 
   return (
-    <div className="absolute top-20 left-[4rem] mt-6">
+    <div className="absolute top-20 left-[4rem] mt-6 font-vazir">
       <ToastContainer />
       <Button
         onClick={onOpen}
         colorScheme="blue"
-        className="flex gap-2 items-center justify-center w-56"
+        className="flex gap-2 font-vazir items-center justify-center w-56"
       >
         <FaPlus />
         {productslocalization["addNewProduct"]}
@@ -144,12 +144,12 @@ export function InitialFocus({
       >
         <ModalOverlay />
         <ModalContent>
-          <form onSubmit={handleSubmit}>
+          <form className="font-vazir" onSubmit={handleSubmit}>
             <ModalHeader>{productslocalization["addNewProduct"]}</ModalHeader>
             <ModalCloseButton className="mt-2" />
 
             <ModalBody pb={6}>
-              <FormControl className="flex flex-col items-end">
+              <FormControl className="flex font-vazir flex-col items-end">
                 <FormLabel>{productslocalization["productName"]}</FormLabel>
                 <Input
                   type="text"

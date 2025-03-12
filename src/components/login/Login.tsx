@@ -72,7 +72,7 @@ export default function Login() {
   }
 
   return (
-    <div className="flex items-center justify-center h-screen bg-secondary-200">
+    <div className="flex items-center justify-center h-screen bg-secondary-200 font-vazirbold">
       <ToastContainer />
 
       <div className="relative flex flex-col items-center justify-center w-1/2">

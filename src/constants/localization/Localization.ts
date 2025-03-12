@@ -22,6 +22,7 @@ export const asidebarlocalization = {
   help: "پشتیبانی",
   logOut: "خروج از حساب کاربری",
   users: "کاربران",
+  stock: "موجودی"
 };
 
 export const Analysislocalization = {
@@ -141,3 +142,5 @@ export const UserLocalization = {
   loading: "...درحال بارگیری کاربران",
   noUserToShow: ".کاربر موردنظر یافت نشد",
 };
+
+
