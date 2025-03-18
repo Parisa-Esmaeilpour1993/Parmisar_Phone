@@ -12,31 +12,34 @@ import {
   ModalOverlay,
   Select,
   useDisclosure,
-} from '@chakra-ui/react';
-import React, { useState } from 'react';
-import { FaPlus } from 'react-icons/fa';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import axios from 'axios';
-import { API_KEY, BASE_URL } from '../../../constants/api/Api';
-import { modallocalization, productslocalization } from '../../../constants/localization/Localization';
-import { productTypes } from '../../../utils/productType';
+} from "@chakra-ui/react";
+import React, { useState } from "react";
+import { FaPlus } from "react-icons/fa";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
+import { API_KEY, BASE_URL } from "../../../constants/api/Api";
+import {
+  modallocalization,
+  productslocalization,
+} from "../../../constants/localization/Localization";
+import { productTypes } from "../../../utils/productType";
 
 const productStatuses = [
-  { value: 'inStock', label: modallocalization['inStock'] },
+  { value: "inStock", label: modallocalization["inStock"] },
   //{ value: "outOfStock", label: modallocalization["outOfStock"] },
-  { value: 'comingSoon', label: modallocalization['comingSoon'] },
-  { value: 'discontinue', label: modallocalization['discontinue'] },
+  { value: "comingSoon", label: modallocalization["comingSoon"] },
+  { value: "discontinue", label: modallocalization["discontinue"] },
 ];
 
 export function InitialFocus({ fetchProducts }) {
   const [formData, setFormData] = useState({
-    productName: '',
-    productPrice: '',
-    productStock: '',
-    productType: '',
-    productStatus: '',
-    productImage: '',
+    productName: "",
+    productPrice: "",
+    productStock: "",
+    productType: "",
+    productStatus: "",
+    productImage: "",
   });
 
   const [fileName, setFileName] = useState<string | null>(null);
@@ -47,12 +50,12 @@ export function InitialFocus({ fetchProducts }) {
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const uploadImage = async (file: File) => {
     const formData = new FormData();
-    formData.append('image', file);
+    formData.append("image", file);
 
     try {
       const response = await axios.post(
@@ -60,7 +63,7 @@ export function InitialFocus({ fetchProducts }) {
         formData,
         {
           headers: {
-            'Content-Type': 'multipart/form-data',
+            "Content-Type": "multipart/form-data",
             api_key: API_KEY,
             Authorization: `Bearer {eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZDJlM2FiNzFiNTU0NTgwNmVkMWJlYyIsImlhdCI6MTc0MTg3NDEyNCwiZXhwIjoxNzQyMDQ2OTI0fQ.m8NyyLyGVYYni15jiCOuC86EAdIoZ03dlAvdqXC8hQk}`, // توکن معتبر جایگزین شود
           },
@@ -69,7 +72,7 @@ export function InitialFocus({ fetchProducts }) {
 
       return response.data?.downloadLink || null;
     } catch (error) {
-      console.error('Error uploading image:', error);
+      console.error("Error uploading image:", error);
       return null;
     }
   };
@@ -82,10 +85,9 @@ export function InitialFocus({ fetchProducts }) {
     const imageUrl = await uploadImage(file);
 
     if (imageUrl) {
-      setFormData(prev => ({ ...prev, productImage: imageUrl }));
-
+      setFormData((prev) => ({ ...prev, productImage: imageUrl }));
     } else {
-      toast.error('آپلود تصویر ناموفق بود');
+      toast.error("آپلود تصویر ناموفق بود");
     }
   };
 
@@ -93,7 +95,7 @@ export function InitialFocus({ fetchProducts }) {
     e.preventDefault();
 
     if (!formData.productImage) {
-      toast.error('لطفاً تصویر محصول را آپلود کنید');
+      toast.error("لطفاً تصویر محصول را آپلود کنید");
       return;
     }
 
@@ -104,7 +106,7 @@ export function InitialFocus({ fetchProducts }) {
         formData,
         {
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
             api_key: API_KEY,
             Authorization: `Bearer {eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZDJlM2FiNzFiNTU0NTgwNmVkMWJlYyIsImlhdCI6MTc0MTg3NDEyNCwiZXhwIjoxNzQyMDQ2OTI0fQ.m8NyyLyGVYYni15jiCOuC86EAdIoZ03dlAvdqXC8hQk}`,
           },
@@ -112,24 +114,24 @@ export function InitialFocus({ fetchProducts }) {
       );
 
       if (response.status === 201) {
-        toast.success('محصول با موفقیت اضافه شد');
+        toast.success("محصول با موفقیت اضافه شد");
         fetchProducts();
         setFormData({
-          productName: '',
-          productPrice: '',
-          productStock: '',
-          productType: '',
-          productStatus: '',
-          productImage: '',
+          productName: "",
+          productPrice: "",
+          productStock: "",
+          productType: "",
+          productStatus: "",
+          productImage: "",
         });
         setFileName(null);
         onClose();
       } else {
-        toast.error('مشکلی در ذخیره محصول به وجود آمد');
+        toast.error("مشکلی در ذخیره محصول به وجود آمد");
       }
     } catch (error) {
-      toast.error('خطا در ارسال داده‌ها');
-      console.error('Error:', error);
+      toast.error("خطا در ارسال داده‌ها");
+      console.error("Error:", error);
     } finally {
       setLoading(false);
     }
@@ -149,13 +151,13 @@ export function InitialFocus({ fetchProducts }) {
 
       <Modal isOpen={isOpen} onClose={onClose} isCentered>
         <ModalOverlay />
-        <ModalContent>
+        <ModalContent className="text-center">
           <form onSubmit={handleSubmit}>
             <ModalHeader>{productslocalization.addNewProduct}</ModalHeader>
             <ModalCloseButton className="mt-2" />
 
             <ModalBody pb={6}>
-              <FormControl>
+              <FormControl dir="rtl">
                 <Input
                   type="file"
                   accept="image/*"
@@ -165,54 +167,59 @@ export function InitialFocus({ fetchProducts }) {
                 />
                 <FormLabel
                   htmlFor="fileInp"
-                  className="bg-primary-200 p-2 cursor-pointer rounded-md m-auto"
+                  className="bg-primary-200 p-2 cursor-pointer rounded-md m-auto text-center"
                 >
                   {productslocalization.fileINPLabel}
                 </FormLabel>
                 <p className="text-center">
-                  {fileName || 'فایلی انتخاب نشده است'}
+                  {fileName || "فایلی انتخاب نشده است"}
                 </p>
               </FormControl>
 
               <FormControl mt={4}>
-                <FormLabel>{productslocalization.productName}</FormLabel>
+                <FormLabel dir="rtl">
+                  {productslocalization.productName}
+                </FormLabel>
                 <Input
                   type="text"
                   name="productName"
                   value={formData.productName}
                   onChange={handleChange}
+                  dir="rtl"
                 />
               </FormControl>
 
               <FormControl mt={4}>
-                <FormLabel>{productslocalization.price}</FormLabel>
+                <FormLabel dir="rtl">{productslocalization.price}</FormLabel>
                 <Input
                   type="text"
                   name="productPrice"
                   value={formData.productPrice}
                   onChange={handleChange}
+                  dir="rtl"
                 />
               </FormControl>
 
               <FormControl mt={4}>
-                <FormLabel>{productslocalization.stock}</FormLabel>
+                <FormLabel dir="rtl">{productslocalization.stock}</FormLabel>
                 <Input
                   type="number"
                   name="productStock"
                   value={formData.productStock}
                   onChange={handleChange}
+                  dir="rtl"
                 />
               </FormControl>
 
               <FormControl mt={4}>
-                <FormLabel>{productslocalization.type}</FormLabel>
+                <FormLabel dir="rtl">{productslocalization.type}</FormLabel>
                 <Select
                   name="productType"
                   value={formData.productType}
                   onChange={handleChange}
                 >
-                  {productTypes.map(type => (
-                    <option key={type} value={type}>
+                  {productTypes.map((type) => (
+                    <option key={type} value={type} dir="rtl">
                       {type}
                     </option>
                   ))}
@@ -220,14 +227,14 @@ export function InitialFocus({ fetchProducts }) {
               </FormControl>
 
               <FormControl mt={4}>
-                <FormLabel>{productslocalization.status}</FormLabel>
+                <FormLabel dir="rtl">{productslocalization.status}</FormLabel>
                 <Select
                   name="productStatus"
                   value={formData.productStatus}
                   onChange={handleChange}
                 >
-                  {productStatuses.map(status => (
-                    <option key={status.value} value={status.value}>
+                  {productStatuses.map((status) => (
+                    <option key={status.value} value={status.value} dir="rtl">
                       {status.label}
                     </option>
                   ))}
