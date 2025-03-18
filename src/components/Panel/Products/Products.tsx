@@ -16,6 +16,7 @@ import EditProductModal from "./EditProductModal";
 import ProductTable from "./ProductTable";
 import { productStatuses } from "../../../utils/productStatus";
 import { productTypes } from "../../../utils/productType";
+import { API_KEY, BASE_URL } from "../../../constants/api/Api";
 
 export default function Products({
   formData,
@@ -34,9 +35,13 @@ export default function Products({
   const fetchProducts = async () => {
     try {
       const response = await axios.get(
-        "https://676d5e440e299dd2ddff55b6.mockapi.io/shop"
+        `${BASE_URL}/api/records/products`,
+        {headers:{
+          api_key:API_KEY
+        }}
       );
-      setProducts(response.data);
+      const result = await response.data
+      setProducts(result.records);
     } catch (error) {
       console.error(productslocalization.errorInGettingData, error);
     }

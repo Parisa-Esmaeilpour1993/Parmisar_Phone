@@ -17,9 +17,10 @@ import {
   ModalOverlay,
 } from '@chakra-ui/react';
 import Input from '../../shared/input/Input';
+import { API_KEY, BASE_URL } from '../../../constants/api/Api';
 
 export default function Stock({ searchQuery }: { searchQuery: string }) {
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState(false);
   const [products, setProducts] = useState<Iproduct[]>([]);
   const [filteredStock, setFilteredStock] = useState<Iproduct[]>([]);
   const [noResult, setNoResults] = useState(false);
@@ -29,13 +30,19 @@ export default function Stock({ searchQuery }: { searchQuery: string }) {
   async function getStock() {
     setLoading(true);
     try {
-      const response = await axios.get(
-        'https://676d5e440e299dd2ddff55b6.mockapi.io/shop'
-      );
-      setProducts(response.data);
-      setFilteredStock(response.data);
+      const response = await axios.get(`${BASE_URL}/api/records/products`, {
+        headers: {
+          'Content-Type': 'application/json',
+          api_key: API_KEY,
+          Authorization: `Bearer YOUR_ACCESS_TOKEN`, // توکن را اینجا قرار دهید
+        },
+      });
+
+      const result = response.data;
+      setProducts(result.records);
+      setFilteredStock(result.records);
     } catch (error) {
-      console.log(error);
+      console.error('Error fetching stock:', error);
     } finally {
       setLoading(false);
     }
@@ -69,7 +76,10 @@ export default function Stock({ searchQuery }: { searchQuery: string }) {
 
   const handleEditChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (selectedProduct) {
-      setSelectedProduct({ ...selectedProduct, productStock: e.target.value });
+      setSelectedProduct({
+        ...selectedProduct,
+        productStock:(e.target.value), // تبدیل مقدار به عدد
+      });
     }
   };
 
@@ -79,9 +89,14 @@ export default function Stock({ searchQuery }: { searchQuery: string }) {
     setLoading(true);
     try {
       await axios.put(
-        `https://676d5e440e299dd2ddff55b6.mockapi.io/shop/${selectedProduct.id}`,
+        `${BASE_URL}/api/records/products/${selectedProduct.id}`, // "/" اضافه شد
+        { productStock: selectedProduct.productStock },
         {
-          productStock: selectedProduct.productStock,
+          headers: {
+            'Content-Type': 'application/json',
+            api_key: API_KEY,
+            Authorization: `Bearer YOUR_ACCESS_TOKEN`, // توکن را اینجا قرار دهید
+          },
         }
       );
 
@@ -122,13 +137,14 @@ export default function Stock({ searchQuery }: { searchQuery: string }) {
           <table className="min-w-fit bg-white text-center shadow-md rounded-lg border-collapse">
             <thead className="bg-gray-300">
               <tr>
-                <th className="py-3 text-sm font-semibold text-center">
+                <th className="py-3 pl-10 pr-9 text-sm font-semibold text-center">
                   {productslocalization['stock']}
                 </th>
                 <th className="py-3 px-4 text-sm font-semibold text-center">
                   {productslocalization['productName']}
                 </th>
                 <th className="py-3 px-4 text-sm font-semibold text-center">
+                  {productslocalization['edit']}
                 </th>
               </tr>
             </thead>
@@ -138,7 +154,7 @@ export default function Stock({ searchQuery }: { searchQuery: string }) {
                   key={product.id}
                   className="border-b font-number hover:bg-gray-100"
                 >
-                  <td className="py-3 px-4 text-center">
+                  <td className="py-3 pl-10 pr-9 text-center">
                     {product.productStock}
                   </td>
                   <td className="py-3 px-4 text-center">

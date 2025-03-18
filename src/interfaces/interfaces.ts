@@ -1,4 +1,5 @@
 export interface Iproduct {
+  productImage: any;
   productName: string;
   productPrice: string;
   productStock: string;

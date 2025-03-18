@@ -51,20 +51,23 @@ export const informationlocalization = {
 };
 
 export const productslocalization = {
-  Showing: "نمایش",
-  Filter: "فیلتر",
-  addNewProduct: "اضافه کردن محصول جدید",
-  productName: "نام محصول",
-  productID: "شناسه محصول",
-  price: "قیمت",
-  stock: "موجودی",
-  type: "مدل گوشی",
-  status: "وضعیت محصول",
-  action: "کنترل محصول",
-  delete: "حذف",
-  edit: "ویرایش",
-  noProductsFound: ".محصولی یافت نشد",
-  errorInGettingData: "خطا در دریافت محصولات",
+  Showing: 'نمایش',
+  Filter: 'فیلتر',
+  addNewProduct: 'اضافه کردن محصول جدید',
+  productName: 'نام محصول',
+  productID: 'شناسه محصول',
+  price: 'قیمت',
+  stock: 'موجودی',
+  type: 'مدل گوشی',
+  status: 'وضعیت محصول',
+  action: 'کنترل محصول',
+  delete: 'حذف',
+  edit: 'ویرایش',
+  noProductsFound: '.محصولی یافت نشد',
+  errorInGettingData: 'خطا در دریافت محصولات',
+  fileINPLabel: 'فایل مورد نظر را انتخاب کنید',
+  filenotsubmit: 'فایل انتخاب نشده',
+  fileName: ' : نام فایل',
 };
 
 export const swallLocalization = {

@@ -6,4 +6,5 @@ export const initialFormData: Iproduct = {
   productStock: "",
   productType: "",
   productStatus: "",
+  productImage: ""
 };

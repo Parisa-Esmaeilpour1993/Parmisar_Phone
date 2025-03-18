@@ -15,7 +15,7 @@ export default function Asidebar() {
 
   const handleLogout = () => {
     localStorage.removeItem("token");
-    navigate("/login");
+    navigate("/");
   };
 
   const asideContext = useContext(AsideContext);

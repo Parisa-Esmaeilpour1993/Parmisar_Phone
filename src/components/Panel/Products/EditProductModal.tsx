@@ -47,7 +47,7 @@ export default function EditProductModal({
           value={selectedProduct.productPrice}
           onChange={handleEditChange}
           label={productslocalization["price"]}
-          type="number"
+          type="text"
         />
         <Input
           className="p-2 rounded-md mb-3"

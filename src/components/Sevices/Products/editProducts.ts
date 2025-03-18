@@ -1,8 +1,9 @@
 import axios from 'axios';
+import { API_KEY, BASE_URL } from '../../../constants/api/Api';
 
 
 const apiClient = axios.create({
-  baseURL: 'https://676d5e440e299dd2ddff55b6.mockapi.io',
+  baseURL: `${BASE_URL}/api/records/products`,
 });
 
 export const fetchItems = async () => {
@@ -21,7 +22,17 @@ export const updateItem = async (
   updatedData: Record<string, any>
 ) => {
   try {
-    const { data } = await apiClient.put(`/shop/${id}`, updatedData);
+    const { data } = await axios.put(
+      `${BASE_URL}/api/records/products/${id}`,
+      updatedData,
+      {
+        headers: {
+          api_key: API_KEY,
+          Authorization: `Bearer {{eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZDJlM2FiNzFiNTU0NTgwNmVkMWJlYyIsImlhdCI6MTc0MTg3NDEyNCwiZXhwIjoxNzQyMDQ2OTI0fQ.m8NyyLyGVYYni15jiCOuC86EAdIoZ03dlAvdqXC8hQk}}`,
+        },
+      }
+    );
+
     console.log('Updated Data:', updatedData);
     if (data) {
       return data; 
